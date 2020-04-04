@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Data
@@ -11,11 +12,12 @@ import javax.persistence.Table;
 @Table(name = "route_passengers", catalog = "routes")
 public class Passenger {
 
-    @Column(name = "idUser", nullable = false)
-    private Long idUser;
-
+    @Id
     @Column(name = "idRouter", nullable = false)
-    private Long idRoute;
+    private long idRoute;
+
+    @Column(name = "idUser", nullable = false)
+    private long idUser;
 
     @Column(name = "pointDeparture", nullable = false)
     private String pointDeparture;
