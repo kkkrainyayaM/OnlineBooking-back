@@ -5,7 +5,7 @@
     <changeSet author="mari" id="1">
 
         <createTable tableName="user">
-            <column name="id" type="INT" autoIncrement="true">
+            <column name="id" type="Long" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
             <column name="phone" type="VARCHAR(45)">
@@ -29,7 +29,7 @@
     <changeSet author="mari" id="2">
 
         <createTable tableName="route">
-            <column name="id" type="INT" autoIncrement="true">
+            <column name="id" type="Long" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
             <column name="date" type="date">
@@ -53,10 +53,10 @@
     <changeSet author="mari" id="3">
 
         <createTable tableName="route_passengers">
-            <column name="idRoute" type="INT">
+            <column name="idRoute" type="Long">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="idUser" type="INT">
+            <column name="idUser" type="Long">
                 <constraints nullable="false"/>
             </column>
             <column name="pointDeparture" type="VARCHAR(45)">
