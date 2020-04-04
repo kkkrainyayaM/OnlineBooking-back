@@ -52,8 +52,8 @@
 
     <changeSet author="mari" id="3">
 
-        <createTable tableName="rout_passengers">
-            <column name="idRout" type="INT">
+        <createTable tableName="route_passengers">
+            <column name="idRoute" type="INT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="idUser" type="INT">
@@ -67,16 +67,16 @@
             </column>
         </createTable>
 
-        <addForeignKeyConstraint baseTableName="rout_passengers"
+        <addForeignKeyConstraint baseTableName="route_passengers"
                                  baseColumnNames="idUser"
                                  constraintName="fk_passenger_id"
                                  referencedTableName="user"
                                  referencedColumnNames="id"/>
 
-        <addForeignKeyConstraint baseTableName="rout_passengers"
-                                 baseColumnNames="idRout"
-                                 constraintName="fk_rout_id"
-                                 referencedTableName="rout"
+        <addForeignKeyConstraint baseTableName="route_passengers"
+                                 baseColumnNames="idRoute"
+                                 constraintName="fk_route_id"
+                                 referencedTableName="route"
                                  referencedColumnNames="id"/>
 
     </changeSet>
