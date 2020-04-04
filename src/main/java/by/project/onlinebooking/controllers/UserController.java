@@ -1,23 +1,16 @@
 package by.project.onlinebooking.controllers;
 
 import by.project.onlinebooking.entities.User;
+import by.project.onlinebooking.exceptions.UserNotFoundException;
+import by.project.onlinebooking.repositories.PassengersRepository;
 import by.project.onlinebooking.repositories.UserRepository;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -25,45 +18,56 @@ import java.util.Map;
 @RequestMapping("/")
 public class UserController {
 
-
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PassengersRepository passengersRepository;
+
     @GetMapping("/admin/users")
-    public List<User> getAllUsers() {
+    public List<User> getAll() {
         return userRepository.findAll();
     }
 
-    /*@GetMapping("/admin/flight/{id}")
-    public List<User> getPassengers(@PathVariable(value = "id") Long flightId)
-    throws ResourceNotFoundException {
+    @GetMapping("/admin/flights/{id}")
+    public List<User> getPassengers(@PathVariable long id) {
+        List<User> passengers = new ArrayList<>();
+        passengersRepository.findAllById( Collections.singleton( id ) )
+                .forEach( passenger -> passengers.add( userRepository
+                .findById( passenger.getIdUser() ).get() ) );
+        return passengers;
+    }
 
-    }*/
+    @PostMapping("/user")
+    public User newUser(@RequestBody User newUser) {
+        return userRepository.save( newUser );
+    }
+
+    @GetMapping("/account/{id}")
+    public User getUser(@PathVariable long id) {
+        return userRepository.findById( id )
+                .orElseThrow( () -> new UserNotFoundException( id ) );
+    }
 
     @PutMapping("/account/{id}")
-    public ResponseEntity<User> updateUser(
+    public User updateUser(
             @PathVariable(value = "id") Long userId,
             @Valid @RequestBody User userDetails)
-            throws ResourceNotFoundException {
+            throws UserNotFoundException {
         User user = userRepository.findById( userId )
-                .orElseThrow( () -> new ResourceNotFoundException( ("User not found for this id :: " + userId) ) );
+                .orElseThrow( () -> new UserNotFoundException( userId ) );
         user.setFirstName( userDetails.getFirstName() );
         user.setLastName( userDetails.getLastName() );
         user.setPassword( userDetails.getPassword() );
         user.setPhone( userDetails.getPhone() );
-        final User updatedUser = userRepository.save( user );
-        return ResponseEntity.ok( updatedUser );
+        return userRepository.save( user );
     }
 
     @DeleteMapping("/admin/users/{id}")
-    public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId)
-            throws ResourceNotFoundException {
+    public void deleteUser(@PathVariable(value = "id") Long userId)
+            throws UserNotFoundException {
         User user = userRepository.findById( userId )
-                .orElseThrow( () -> new ResourceNotFoundException( "User not found for this id :: " + userId ) );
-
+                .orElseThrow( () -> new UserNotFoundException( userId ) );
         userRepository.delete( user );
-        Map<String, Boolean> response = new HashMap<>();
-        response.put( "deleted", Boolean.TRUE );
-        return response;
     }
 }
