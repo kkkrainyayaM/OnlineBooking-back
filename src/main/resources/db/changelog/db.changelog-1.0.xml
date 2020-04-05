@@ -35,16 +35,16 @@
             <column name="date" type="date">
                 <constraints nullable="false"/>
             </column>
-            <column name="timeDeparture" type="VARCHAR(5)">
+            <column name="time_departure" type="VARCHAR(5)">
                 <constraints nullable="false"/>
             </column>
-            <column name="timeArrival" type="VARCHAR(5)">
+            <column name="time_arrival" type="VARCHAR(5)">
                 <constraints nullable="false"/>
             </column>
-            <column name="pointDeparture" type="VARCHAR(45)">
+            <column name="point_departure" type="VARCHAR(45)">
                 <constraints nullable="false"/>
             </column>
-            <column name="pointArrival" type="VARCHAR(45)">
+            <column name="point_arrival" type="VARCHAR(45)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -53,28 +53,28 @@
     <changeSet author="mari" id="3">
 
         <createTable tableName="route_passengers">
-            <column name="idRoute" type="INT">
+            <column name="id_route" type="INT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="idUser" type="INT">
+            <column name="id_user" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column name="pointDeparture" type="VARCHAR(45)">
+            <column name="point_departure" type="VARCHAR(45)">
                 <constraints nullable="false"/>
             </column>
-            <column name="pointArrival" type="VARCHAR(45)">
+            <column name="point_arrival" type="VARCHAR(45)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
         <addForeignKeyConstraint baseTableName="route_passengers"
-                                 baseColumnNames="idUser"
+                                 baseColumnNames="id_user"
                                  constraintName="fk_passenger_id"
                                  referencedTableName="user"
                                  referencedColumnNames="id"/>
 
         <addForeignKeyConstraint baseTableName="route_passengers"
-                                 baseColumnNames="idRoute"
+                                 baseColumnNames="id_route"
                                  constraintName="fk_route_id"
                                  referencedTableName="route"
                                  referencedColumnNames="id"/>
