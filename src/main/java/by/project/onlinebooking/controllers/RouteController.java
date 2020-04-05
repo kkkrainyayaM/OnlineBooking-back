@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -47,17 +48,17 @@ public class RouteController {
         return routes;
     }
 
-    @ApiOperation(value = "Add a flight")
-    @PostMapping("/admin/flights")
-    public Route newRoute(@RequestBody Route newRoute) {
-        return routeRepository.save( newRoute );
-    }
-
     @ApiOperation(value = "Get a flight by Id")
     @GetMapping("/admin/flights/{id}")
     public Route getRoute(@PathVariable long id) {
         return routeRepository.findById( id )
                 .orElseThrow( () -> new RouteNotFoundException( id ) );
+    }
+
+    @ApiOperation(value = "Add a flight")
+    @PostMapping("/admin/flights")
+    public Route newRoute(@RequestBody Route newRoute) {
+        return routeRepository.save( newRoute );
     }
 
     @ApiOperation(value = "Update a flight")
@@ -80,6 +81,8 @@ public class RouteController {
     @DeleteMapping("/admin/flight/{id}")
     public void deleteFlight(@PathVariable(value = "id") long routeId)
             throws RouteNotFoundException {
+        passengersRepository.findAllById( Collections.singleton( routeId ) )
+                .forEach( route -> passengersRepository.delete( route ) );
         Route route = routeRepository.findById( routeId )
                 .orElseThrow( () -> new RouteNotFoundException( routeId ) );
         routeRepository.delete( route );

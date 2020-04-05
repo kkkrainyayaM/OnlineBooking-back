@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -41,26 +39,17 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/admin/flights/{id}/passengers")
-    public List<User> getPassengers(@PathVariable long id) {
-        List<User> passengers = new ArrayList<>();
-        passengersRepository.findAllById( Collections.singleton( id ) )
-                .forEach( passenger -> passengers.add( userRepository
-                .findById( passenger.getIdUser() ).get() ) );
-        return passengers;
+    @ApiOperation(value = "Get a user by Id")
+    @GetMapping("/account/{id}")
+    public User getUser(@PathVariable long id) {
+        return userRepository.findById( id )
+                .orElseThrow( () -> new UserNotFoundException( id ) );
     }
 
     @ApiOperation(value = "Add a user")
     @PostMapping("/user")
     public User newUser(@RequestBody User newUser) {
         return userRepository.save( newUser );
-    }
-
-    @ApiOperation(value = "Get a user by Id")
-    @GetMapping("/account/{id}")
-    public User getUser(@PathVariable long id) {
-        return userRepository.findById( id )
-                .orElseThrow( () -> new UserNotFoundException( id ) );
     }
 
     @ApiOperation(value = "Update a user")
@@ -78,12 +67,16 @@ public class UserController {
         return userRepository.save( user );
     }
 
-    @ApiOperation(value = "Delete an employee")
+    @ApiOperation(value = "Delete a user")
     @DeleteMapping("/admin/users/{id}")
-    public void deleteUser(@PathVariable(value = "id") Long userId)
+    public void deleteUser(@PathVariable(value = "id") long userId)
             throws UserNotFoundException {
+        passengersRepository.findAll().stream().filter( passenger -> passenger.getIdUser() == userId )
+                .forEach( passenger -> passengersRepository.delete( passenger ) );
         User user = userRepository.findById( userId )
                 .orElseThrow( () -> new UserNotFoundException( userId ) );
         userRepository.delete( user );
     }
+
+
 }
