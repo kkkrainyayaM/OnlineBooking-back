@@ -18,19 +18,19 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @Column( nullable = false)
     private long id;
 
-    @Column(name = "firstname", nullable = false)
+    @Column( nullable = false)
     private String firstName;
 
-    @Column(name = "lastname", nullable = false)
+    @Column( nullable = false)
     private String lastName;
 
-    @Column(name = "password", nullable = false)
+    @Column( nullable = false)
     private String password;
 
-    @Column(name = "phone", nullable = false)
+    @Column( nullable = false)
     private String phone;
 
     @Enumerated(EnumType.STRING)
