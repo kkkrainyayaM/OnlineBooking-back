@@ -4,23 +4,26 @@ import by.project.onlinebooking.dto.PassengerDto;
 import by.project.onlinebooking.entities.Passenger;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mapstruct.factory.Mappers;
 
 public class PassengerMapperTest {
+
+    private final PassengerMapper passengerMapper = Mappers.getMapper( PassengerMapper.class );
 
     @Test
     public void givenPassengerToPassengerTdo__whenMaps__thenCorrect() {
         Passenger passenger = new Passenger();
         passenger.setDeparturePoint( "departurePoint" );
         passenger.setArrivalPoint( "arrivalPoint" );
-        passenger.setIdRoute( 1 );
-        passenger.setIdUser( 1 );
+        passenger.setRouteId( 1 );
+        passenger.setUserId( 1 );
 
-        PassengerDto passengerDto = PassengerMapper.INSTANCE.passengerToPassengerDto( passenger );
+        PassengerDto passengerDto = passengerMapper.passengerToPassengerDto( passenger );
 
-        Assert.assertEquals( passenger.getIdUser(), passengerDto.getUserId() );
+        Assert.assertEquals( passenger.getUserId(), passengerDto.getUserId() );
         Assert.assertEquals( passenger.getArrivalPoint(), passengerDto.getArrivalPoint() );
         Assert.assertEquals( passenger.getDeparturePoint(), passengerDto.getDeparturePoint() );
-        Assert.assertEquals( passenger.getIdRoute(), passengerDto.getRouteId() );
+        Assert.assertEquals( passenger.getRouteId(), passengerDto.getRouteId() );
 
     }
 
@@ -32,12 +35,12 @@ public class PassengerMapperTest {
         passengerDto.setRouteId( 1 );
         passengerDto.setUserId( 1 );
 
-        Passenger passenger = PassengerMapper.INSTANCE.passengerDtoToPassenger( passengerDto );
+        Passenger passenger = passengerMapper.passengerDtoToPassenger( passengerDto );
 
-        Assert.assertEquals( passenger.getIdUser(), passengerDto.getUserId() );
+        Assert.assertEquals( passenger.getUserId(), passengerDto.getUserId() );
         Assert.assertEquals( passenger.getArrivalPoint(), passengerDto.getArrivalPoint() );
         Assert.assertEquals( passenger.getDeparturePoint(), passengerDto.getDeparturePoint() );
-        Assert.assertEquals( passenger.getIdRoute(), passengerDto.getRouteId() );
+        Assert.assertEquals( passenger.getRouteId(), passengerDto.getRouteId() );
 
     }
 

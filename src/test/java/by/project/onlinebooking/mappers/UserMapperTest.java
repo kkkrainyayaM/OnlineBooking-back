@@ -5,8 +5,11 @@ import by.project.onlinebooking.entities.Role;
 import by.project.onlinebooking.entities.User;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mapstruct.factory.Mappers;
 
 public class UserMapperTest {
+
+    private final UserMapper userMapper = Mappers.getMapper( UserMapper.class );
 
     @Test
     public void givenUserToUserTdo__whenMaps__thenCorrect() {
@@ -18,7 +21,7 @@ public class UserMapperTest {
         user.setPhone( "phone" );
         user.setRole( Role.USER );
 
-        UserDto UserDto = UserMapper.INSTANCE.userToUserDto( user );
+        UserDto UserDto = userMapper.userToUserDto( user );
 
         Assert.assertEquals( user.getId(), UserDto.getId() );
         Assert.assertEquals( user.getFirstName(), UserDto.getFirstName() );
@@ -39,7 +42,7 @@ public class UserMapperTest {
         userDto.setPhone( "phone" );
         userDto.setRole( Role.USER );
 
-        User user = UserMapper.INSTANCE.userDtoToUser( userDto );
+        User user = userMapper.userDtoToUser( userDto );
 
         Assert.assertEquals( userDto.getId(), user.getId() );
         Assert.assertEquals( userDto.getFirstName(), user.getFirstName() );

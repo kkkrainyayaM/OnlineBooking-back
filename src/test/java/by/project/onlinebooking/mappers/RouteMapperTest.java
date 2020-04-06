@@ -4,11 +4,13 @@ import by.project.onlinebooking.dto.RouteDto;
 import by.project.onlinebooking.entities.Route;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mapstruct.factory.Mappers;
 
 import java.util.Date;
 
 public class RouteMapperTest {
 
+    private final RouteMapper routeMapper = Mappers.getMapper( RouteMapper.class );
 
     @Test
     public void givenRouteToRouteTdo__whenMaps__thenCorrect() {
@@ -21,7 +23,7 @@ public class RouteMapperTest {
         route.setDepartureTime( "departureTime" );
         route.setArrivalTime( "arrivalTime" );
 
-        RouteDto RouteDto = RouteMapper.INSTANCE.routeToRouteDto( route );
+        RouteDto RouteDto = routeMapper.routeToRouteDto( route );
 
         Assert.assertEquals( route.getId(), RouteDto.getId() );
         Assert.assertEquals( route.getDate(), RouteDto.getDate() );
@@ -43,7 +45,7 @@ public class RouteMapperTest {
         routeDto.setDepartureTime( "departureTime" );
         routeDto.setArrivalTime( "arrivalTime" );
 
-        Route route = RouteMapper.INSTANCE.routeDtoToRoute( routeDto );
+        Route route = routeMapper.routeDtoToRoute( routeDto );
 
         Assert.assertEquals( route.getId(), routeDto.getId() );
         Assert.assertEquals( route.getDate(), routeDto.getDate() );
