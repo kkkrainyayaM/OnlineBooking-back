@@ -1,7 +1,6 @@
 package by.project.onlinebooking.services;
 
 import by.project.onlinebooking.entities.Route;
-import by.project.onlinebooking.exceptions.RouteNotFoundException;
 
 import java.util.List;
 
@@ -19,9 +18,8 @@ public interface RouteService {
      *
      * @param id - route ID
      * @return route
-     * @throws RouteNotFoundException if route doesn't exist
      */
-    Route getById(long id) throws RouteNotFoundException;
+    Route getById(long id);
 
     /**
      * Get list of all routes
@@ -35,15 +33,13 @@ public interface RouteService {
      *
      * @param route - existed route with updated fields
      * @return updated route
-     * @throws RouteNotFoundException if route doesn't exist
      */
-    Route update(Route route) throws RouteNotFoundException;
+    Route update(Route route);
 
     /**
      * Delete route by ID
      *
      * @param id - route ID
-     * @throws RouteNotFoundException if route doesn't exist
      */
-    void delete(long id) throws RouteNotFoundException;
+    void delete(long id);
 }

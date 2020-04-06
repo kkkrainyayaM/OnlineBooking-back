@@ -1,7 +1,6 @@
 package by.project.onlinebooking.services.impl;
 
 import by.project.onlinebooking.entities.Route;
-import by.project.onlinebooking.exceptions.RouteNotFoundException;
 import by.project.onlinebooking.repositories.RouteRepository;
 import by.project.onlinebooking.services.PassengerService;
 import by.project.onlinebooking.services.RouteService;
@@ -26,8 +25,8 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public Route getById(long id) throws RouteNotFoundException {
-        return routeRepository.findById( id ).orElseThrow( () -> new RouteNotFoundException( id ) );
+    public Route getById(long id) {
+        return routeRepository.getOne( id );
     }
 
     @Override
@@ -36,9 +35,8 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public Route update(Route route) throws RouteNotFoundException {
-        Route updatedRoute = routeRepository.findById( route.getId() )
-                .orElseThrow( () -> new RouteNotFoundException( route.getId() ) );
+    public Route update(Route route) {
+        Route updatedRoute = routeRepository.getOne( route.getId() );
         updatedRoute.setTimeDeparture( route.getTimeDeparture() );
         updatedRoute.setTimeArrival( route.getTimeArrival() );
         updatedRoute.setPointDeparture( route.getPointDeparture() );
@@ -48,10 +46,9 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public void delete(long id) throws RouteNotFoundException {
+    public void delete(long id) {
         passengerService.deleteByRouteId( id );
-        Route route = routeRepository.findById( id )
-                .orElseThrow( () -> new RouteNotFoundException( id ) );
+        Route route = routeRepository.getOne( id );
         routeRepository.delete( route );
     }
 }

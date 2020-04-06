@@ -1,7 +1,6 @@
 package by.project.onlinebooking.services;
 
 import by.project.onlinebooking.entities.User;
-import by.project.onlinebooking.exceptions.UserNotFoundException;
 
 import java.util.List;
 
@@ -20,9 +19,8 @@ public interface UserService {
      *
      * @param id - user ID
      * @return user
-     * @throws UserNotFoundException if user doesn't exist
      */
-    User getById(long id) throws UserNotFoundException;
+    User getById(long id);
 
     /**
      * Get list of all users
@@ -36,15 +34,13 @@ public interface UserService {
      *
      * @param user - existed user with updated fields
      * @return updated user
-     * @throws UserNotFoundException if user doesn't exist
      */
-    User update(User user) throws UserNotFoundException;
+    User update(User user);
 
     /**
      * Delete user by ID
      *
      * @param id - user ID
-     * @throws UserNotFoundException if user doesn't exist
      */
-    void delete(long id) throws UserNotFoundException;
+    void delete(long id);
 }

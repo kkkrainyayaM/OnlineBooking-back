@@ -1,7 +1,6 @@
 package by.project.onlinebooking.services.impl;
 
 import by.project.onlinebooking.entities.Passenger;
-import by.project.onlinebooking.exceptions.PassengerNotFoundException;
 import by.project.onlinebooking.repositories.PassengersRepository;
 import by.project.onlinebooking.services.PassengerService;
 import org.springframework.stereotype.Service;
@@ -25,14 +24,14 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public void deleteByUserId(long id) throws PassengerNotFoundException {
+    public void deleteByUserId(long id) {
         passengerRepository.findAll().stream()
                 .filter( pas -> pas.getIdUser() == id )
                 .forEach( passengerRepository::delete );
     }
 
     @Override
-    public void deleteByRouteId(long id) throws PassengerNotFoundException {
+    public void deleteByRouteId(long id) {
         passengerRepository.findAllById( Collections.singleton( id ) ).forEach( passengerRepository::delete );
     }
 
@@ -49,9 +48,8 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public Passenger update(Passenger passenger) throws PassengerNotFoundException {
-        Passenger updatedPassenger = passengerRepository.findById( passenger.getIdRoute() )
-                .orElseThrow( () -> new PassengerNotFoundException( passenger.getIdRoute() ) );
+    public Passenger update(Passenger passenger) {
+        Passenger updatedPassenger = passengerRepository.getOne( passenger.getIdRoute() );
         updatedPassenger.setPointArrival( passenger.getPointArrival() );
         updatedPassenger.setPointDeparture( passenger.getPointDeparture() );
         return passengerRepository.save( updatedPassenger );

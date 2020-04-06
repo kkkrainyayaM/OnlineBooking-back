@@ -1,7 +1,6 @@
 package by.project.onlinebooking.services.impl;
 
 import by.project.onlinebooking.entities.User;
-import by.project.onlinebooking.exceptions.UserNotFoundException;
 import by.project.onlinebooking.repositories.UserRepository;
 import by.project.onlinebooking.services.PassengerService;
 import by.project.onlinebooking.services.UserService;
@@ -27,9 +26,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getById(long id) throws UserNotFoundException {
-        return userRepository.findById( id )
-                .orElseThrow( () -> new UserNotFoundException( id ) );
+    public User getById(long id) {
+        return userRepository.getOne( id );
     }
 
     @Override
@@ -38,9 +36,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(User user) throws UserNotFoundException {
-        User updatedUser = userRepository.findById( user.getId() )
-                .orElseThrow( () -> new UserNotFoundException( user.getId() ) );
+    public User update(User user) {
+        User updatedUser = userRepository.getOne( user.getId() );
         updatedUser.setFirstName( user.getFirstName() );
         updatedUser.setLastName( user.getLastName() );
         updatedUser.setPassword( user.getPassword() );
@@ -49,10 +46,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(long id) throws UserNotFoundException {
+    public void delete(long id) {
         passengerService.deleteByUserId( id );
-        User user = userRepository.findById( id )
-                .orElseThrow( () -> new UserNotFoundException( id ) );
+        User user = userRepository.getOne( id );
         userRepository.delete( user );
     }
 }

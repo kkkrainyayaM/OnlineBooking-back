@@ -1,7 +1,6 @@
 package by.project.onlinebooking.services;
 
 import by.project.onlinebooking.entities.Passenger;
-import by.project.onlinebooking.exceptions.PassengerNotFoundException;
 
 import java.util.List;
 
@@ -19,17 +18,15 @@ public interface PassengerService {
      * Delete passenger by user ID
      *
      * @param id - passenger(user) id
-     * @throws PassengerNotFoundException if passenger doesn't exist
      */
-    void deleteByUserId(long id) throws PassengerNotFoundException;
+    void deleteByUserId(long id);
 
     /**
      * Delete passenger by route ID
      *
      * @param id - route id
-     * @throws PassengerNotFoundException if passenger doesn't exist
      */
-    void deleteByRouteId(long id) throws PassengerNotFoundException;
+    void deleteByRouteId(long id);
 
     /**
      * Get all routes of passenger
@@ -52,7 +49,6 @@ public interface PassengerService {
      *
      * @param passenger - Passenger
      * @return updated passenger
-     * @throws PassengerNotFoundException if passenger doesn't exist
      */
-    Passenger update(Passenger passenger) throws PassengerNotFoundException;
+    Passenger update(Passenger passenger);
 }
