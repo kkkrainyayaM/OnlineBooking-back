@@ -6,7 +6,6 @@ import by.project.onlinebooking.mappers.RouteMapper;
 import by.project.onlinebooking.repositories.RouteRepository;
 import by.project.onlinebooking.services.PassengerService;
 import by.project.onlinebooking.services.RouteService;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +16,6 @@ public class RouteServiceImpl implements RouteService {
 
     private final RouteRepository routeRepository;
     private final PassengerService passengerService;
-    private final RouteMapper mapper = Mappers.getMapper( RouteMapper.class );
 
     public RouteServiceImpl(RouteRepository routeRepository,
                             PassengerServiceImpl passengerService) {
@@ -27,19 +25,19 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     public RouteDTO add(RouteDTO route) {
-        Route routePOJO = mapper.routeDtoToRoute( route );
-        return mapper.routeToRouteDto( routeRepository.save( routePOJO ) );
+        Route routePOJO = RouteMapper.INSTANCE.routeDtoToRoute( route );
+        return RouteMapper.INSTANCE.routeToRouteDto( routeRepository.save( routePOJO ) );
     }
 
     @Override
     public RouteDTO getById(long id) {
-        return mapper.routeToRouteDto( routeRepository.getOne( id ) );
+        return RouteMapper.INSTANCE.routeToRouteDto( routeRepository.getOne( id ) );
     }
 
     @Override
     public List<RouteDTO> getAll() {
         return routeRepository.findAll().stream()
-                .map( mapper::routeToRouteDto )
+                .map( RouteMapper.INSTANCE::routeToRouteDto )
                 .collect( Collectors.toList() );
     }
 
@@ -51,7 +49,7 @@ public class RouteServiceImpl implements RouteService {
         updatedRoute.setPointDeparture( route.getDeparturePoint() );
         updatedRoute.setPointArrival( route.getArrivalPoint() );
         updatedRoute.setDate( route.getDate() );
-        return mapper.routeToRouteDto( routeRepository.save( updatedRoute ) );
+        return RouteMapper.INSTANCE.routeToRouteDto( routeRepository.save( updatedRoute ) );
     }
 
     @Override

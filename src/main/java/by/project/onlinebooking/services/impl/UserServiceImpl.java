@@ -6,7 +6,6 @@ import by.project.onlinebooking.mappers.UserMapper;
 import by.project.onlinebooking.repositories.UserRepository;
 import by.project.onlinebooking.services.PassengerService;
 import by.project.onlinebooking.services.UserService;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +16,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PassengerService passengerService;
-    private final UserMapper mapper = Mappers.getMapper( UserMapper.class );
 
     public UserServiceImpl(UserRepository userRepository,
                            PassengerServiceImpl passengerService) {
@@ -27,19 +25,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO add(UserDTO user) {
-        User userPOJO = mapper.userDtoToUser( user );
-        return mapper.userToUserDto( userRepository.save( userPOJO ) );
+        User userPOJO = UserMapper.INSTANCE.userDtoToUser( user );
+        return UserMapper.INSTANCE.userToUserDto( userRepository.save( userPOJO ) );
     }
 
     @Override
     public UserDTO getById(long id) {
-        return mapper.userToUserDto( userRepository.getOne( id ) );
+        return UserMapper.INSTANCE.userToUserDto( userRepository.getOne( id ) );
     }
 
     @Override
     public List<UserDTO> getAll() {
         return userRepository.findAll().stream()
-                .map( mapper::userToUserDto )
+                .map( UserMapper.INSTANCE::userToUserDto )
                 .collect( Collectors.toList() );
     }
 
@@ -50,7 +48,7 @@ public class UserServiceImpl implements UserService {
         updatedUser.setLastName( user.getLastName() );
         updatedUser.setPassword( user.getPassword() );
         updatedUser.setPhone( user.getPhone() );
-        return mapper.userToUserDto( userRepository.save( updatedUser ) );
+        return UserMapper.INSTANCE.userToUserDto( userRepository.save( updatedUser ) );
     }
 
     @Override
