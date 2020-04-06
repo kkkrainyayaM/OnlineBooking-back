@@ -41,10 +41,10 @@ public class UserServiceImpl implements UserService {
     public User update(User user) throws UserNotFoundException {
         User updatedUser = userRepository.findById( user.getId() )
                 .orElseThrow( () -> new UserNotFoundException( user.getId() ) );
-        user.setFirstName( user.getFirstName() );
-        user.setLastName( user.getLastName() );
-        user.setPassword( user.getPassword() );
-        user.setPhone( user.getPhone() );
+        updatedUser.setFirstName( user.getFirstName() );
+        updatedUser.setLastName( user.getLastName() );
+        updatedUser.setPassword( user.getPassword() );
+        updatedUser.setPhone( user.getPhone() );
         return userRepository.save( updatedUser );
     }
 
