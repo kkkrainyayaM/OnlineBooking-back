@@ -32,6 +32,11 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
+    public void deleteByRouteId(long id) throws PassengerNotFoundException {
+        passengerRepository.findAllById( Collections.singleton( id ) ).forEach( passengerRepository::delete );
+    }
+
+    @Override
     public List<Passenger> getAllByUserId(long id) {
         return passengerRepository.findAll().stream()
                 .filter( passenger -> passenger.getIdUser() == id )

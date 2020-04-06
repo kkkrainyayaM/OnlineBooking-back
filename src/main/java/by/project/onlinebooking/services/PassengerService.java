@@ -24,6 +24,14 @@ public interface PassengerService {
     void deleteByUserId(long id) throws PassengerNotFoundException;
 
     /**
+     * Delete passenger by route ID
+     *
+     * @param id - route id
+     * @throws PassengerNotFoundException if passenger doesn't exist
+     */
+    void deleteByRouteId(long id) throws PassengerNotFoundException;
+
+    /**
      * Get all routes of passenger
      *
      * @param id - passenger id
