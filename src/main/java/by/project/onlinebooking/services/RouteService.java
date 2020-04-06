@@ -1,6 +1,6 @@
 package by.project.onlinebooking.services;
 
-import by.project.onlinebooking.DTO.RouteDTO;
+import by.project.onlinebooking.dto.RouteDto;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public interface RouteService {
      * @param route - new Route
      * @return added route
      */
-    RouteDTO add(RouteDTO route);
+    RouteDto add(RouteDto route);
 
     /**
      * Get a route by ID
@@ -19,14 +19,14 @@ public interface RouteService {
      * @param id - route ID
      * @return route
      */
-    RouteDTO getById(long id);
+    RouteDto getById(long id);
 
     /**
      * Get list of all routes
      *
      * @return a list of all routes
      */
-    List<RouteDTO> getAll();
+    List<RouteDto> getAll();
 
     /**
      * Update route
@@ -34,7 +34,7 @@ public interface RouteService {
      * @param route - existed route with updated fields
      * @return updated route
      */
-    RouteDTO update(RouteDTO route);
+    RouteDto update(RouteDto route);
 
     /**
      * Delete route by ID

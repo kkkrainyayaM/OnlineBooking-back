@@ -1,6 +1,6 @@
 package by.project.onlinebooking.mappers;
 
-import by.project.onlinebooking.DTO.PassengerDTO;
+import by.project.onlinebooking.dto.PassengerDto;
 import by.project.onlinebooking.entities.Passenger;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,7 +15,7 @@ public class PassengerMapperTest {
         passenger.setIdRoute( 1 );
         passenger.setIdUser( 1 );
 
-        PassengerDTO passengerDto = PassengerMapper.INSTANCE.passengerToPassengerDto( passenger );
+        PassengerDto passengerDto = PassengerMapper.INSTANCE.passengerToPassengerDto( passenger );
 
         Assert.assertEquals( passenger.getIdUser(), passengerDto.getUserId() );
         Assert.assertEquals( passenger.getArrivalPoint(), passengerDto.getArrivalPoint() );
@@ -26,7 +26,7 @@ public class PassengerMapperTest {
 
     @Test
     public void givenPassengerTdoToPassenger__whenMaps__thenCorrect() {
-        PassengerDTO passengerDto = new PassengerDTO();
+        PassengerDto passengerDto = new PassengerDto();
         passengerDto.setDeparturePoint( "departurePoint" );
         passengerDto.setArrivalPoint( "arrivalPoint" );
         passengerDto.setRouteId( 1 );

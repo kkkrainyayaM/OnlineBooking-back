@@ -1,6 +1,6 @@
 package by.project.onlinebooking.services;
 
-import by.project.onlinebooking.DTO.PassengerDTO;
+import by.project.onlinebooking.dto.PassengerDto;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public interface PassengerService {
      * @param passenger - Passenger
      * @return new passenger
      */
-    PassengerDTO add(PassengerDTO passenger);
+    PassengerDto add(PassengerDto passenger);
 
     /**
      * Delete passenger by user ID
@@ -34,7 +34,7 @@ public interface PassengerService {
      * @param id - passenger id
      * @return list of passengers
      */
-    List<PassengerDTO> getAllByUserId(long id);
+    List<PassengerDto> getAllByUserId(long id);
 
     /**
      * Get all passengers of route
@@ -42,7 +42,7 @@ public interface PassengerService {
      * @param id - route id
      * @return list of passengers
      */
-    List<PassengerDTO> getAllByRouteId(long id);
+    List<PassengerDto> getAllByRouteId(long id);
 
     /**
      * Update passenger
@@ -50,5 +50,5 @@ public interface PassengerService {
      * @param passenger - Passenger
      * @return updated passenger
      */
-    PassengerDTO update(PassengerDTO passenger);
+    PassengerDto update(PassengerDto passenger);
 }

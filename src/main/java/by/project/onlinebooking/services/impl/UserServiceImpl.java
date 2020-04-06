@@ -1,6 +1,6 @@
 package by.project.onlinebooking.services.impl;
 
-import by.project.onlinebooking.DTO.UserDTO;
+import by.project.onlinebooking.dto.UserDto;
 import by.project.onlinebooking.entities.User;
 import by.project.onlinebooking.mappers.UserMapper;
 import by.project.onlinebooking.repositories.UserRepository;
@@ -24,25 +24,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO add(UserDTO user) {
+    public UserDto add(UserDto user) {
         User userPOJO = UserMapper.INSTANCE.userDtoToUser( user );
         return UserMapper.INSTANCE.userToUserDto( userRepository.save( userPOJO ) );
     }
 
     @Override
-    public UserDTO getById(long id) {
+    public UserDto getById(long id) {
         return UserMapper.INSTANCE.userToUserDto( userRepository.getOne( id ) );
     }
 
     @Override
-    public List<UserDTO> getAll() {
+    public List<UserDto> getAll() {
         return userRepository.findAll().stream()
                 .map( UserMapper.INSTANCE::userToUserDto )
                 .collect( Collectors.toList() );
     }
 
     @Override
-    public UserDTO update(UserDTO user) {
+    public UserDto update(UserDto user) {
         User updatedUser = userRepository.getOne( user.getId() );
         updatedUser.setFirstName( user.getFirstName() );
         updatedUser.setLastName( user.getLastName() );

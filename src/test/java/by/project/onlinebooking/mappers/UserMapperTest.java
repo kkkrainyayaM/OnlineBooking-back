@@ -1,6 +1,6 @@
 package by.project.onlinebooking.mappers;
 
-import by.project.onlinebooking.DTO.UserDTO;
+import by.project.onlinebooking.dto.UserDto;
 import by.project.onlinebooking.entities.Role;
 import by.project.onlinebooking.entities.User;
 import org.junit.Assert;
@@ -18,35 +18,35 @@ public class UserMapperTest {
         user.setPhone( "phone" );
         user.setRole( Role.USER );
 
-        UserDTO userDTO = UserMapper.INSTANCE.userToUserDto( user );
+        UserDto UserDto = UserMapper.INSTANCE.userToUserDto( user );
 
-        Assert.assertEquals( user.getId(), userDTO.getId() );
-        Assert.assertEquals( user.getFirstName(), userDTO.getFirstName() );
-        Assert.assertEquals( user.getLastName(), userDTO.getLastName() );
-        Assert.assertEquals( user.getPassword(), userDTO.getPassword() );
-        Assert.assertEquals( user.getPhone(), userDTO.getPhone() );
-        Assert.assertEquals( user.getRole(), userDTO.getRole() );
+        Assert.assertEquals( user.getId(), UserDto.getId() );
+        Assert.assertEquals( user.getFirstName(), UserDto.getFirstName() );
+        Assert.assertEquals( user.getLastName(), UserDto.getLastName() );
+        Assert.assertEquals( user.getPassword(), UserDto.getPassword() );
+        Assert.assertEquals( user.getPhone(), UserDto.getPhone() );
+        Assert.assertEquals( user.getRole(), UserDto.getRole() );
 
     }
 
     @Test
     public void givenUserTdoToUser__whenMaps__thenCorrect() {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId( 1 );
-        userDTO.setFirstName( "firstName" );
-        userDTO.setLastName( "lastName" );
-        userDTO.setPassword( "password" );
-        userDTO.setPhone( "phone" );
-        userDTO.setRole( Role.USER );
+        UserDto userDto = new UserDto();
+        userDto.setId( 1 );
+        userDto.setFirstName( "firstName" );
+        userDto.setLastName( "lastName" );
+        userDto.setPassword( "password" );
+        userDto.setPhone( "phone" );
+        userDto.setRole( Role.USER );
 
-        User user = UserMapper.INSTANCE.userDtoToUser( userDTO );
+        User user = UserMapper.INSTANCE.userDtoToUser( userDto );
 
-        Assert.assertEquals( userDTO.getId(), user.getId() );
-        Assert.assertEquals( userDTO.getFirstName(), user.getFirstName() );
-        Assert.assertEquals( userDTO.getLastName(), user.getLastName() );
-        Assert.assertEquals( userDTO.getPassword(), user.getPassword() );
-        Assert.assertEquals( userDTO.getPhone(), user.getPhone() );
-        Assert.assertEquals( userDTO.getRole(), user.getRole() );
+        Assert.assertEquals( userDto.getId(), user.getId() );
+        Assert.assertEquals( userDto.getFirstName(), user.getFirstName() );
+        Assert.assertEquals( userDto.getLastName(), user.getLastName() );
+        Assert.assertEquals( userDto.getPassword(), user.getPassword() );
+        Assert.assertEquals( userDto.getPhone(), user.getPhone() );
+        Assert.assertEquals( userDto.getRole(), user.getRole() );
 
     }
 

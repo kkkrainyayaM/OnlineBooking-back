@@ -1,6 +1,6 @@
 package by.project.onlinebooking.mappers;
 
-import by.project.onlinebooking.DTO.RouteDTO;
+import by.project.onlinebooking.dto.RouteDto;
 import by.project.onlinebooking.entities.Route;
 import org.junit.Assert;
 import org.junit.Test;
@@ -21,36 +21,36 @@ public class RouteMapperTest {
         route.setDepartureTime( "departureTime" );
         route.setArrivalTime( "arrivalTime" );
 
-        RouteDTO routeDTO = RouteMapper.INSTANCE.routeToRouteDto( route );
+        RouteDto RouteDto = RouteMapper.INSTANCE.routeToRouteDto( route );
 
-        Assert.assertEquals( route.getId(), routeDTO.getId() );
-        Assert.assertEquals( route.getDate(), routeDTO.getDate() );
-        Assert.assertEquals( route.getDeparturePoint(), routeDTO.getDeparturePoint() );
-        Assert.assertEquals( route.getArrivalPoint(), routeDTO.getArrivalPoint() );
-        Assert.assertEquals( route.getArrivalTime(), routeDTO.getArrivalTime() );
-        Assert.assertEquals( route.getDepartureTime(), routeDTO.getDepartureTime() );
+        Assert.assertEquals( route.getId(), RouteDto.getId() );
+        Assert.assertEquals( route.getDate(), RouteDto.getDate() );
+        Assert.assertEquals( route.getDeparturePoint(), RouteDto.getDeparturePoint() );
+        Assert.assertEquals( route.getArrivalPoint(), RouteDto.getArrivalPoint() );
+        Assert.assertEquals( route.getArrivalTime(), RouteDto.getArrivalTime() );
+        Assert.assertEquals( route.getDepartureTime(), RouteDto.getDepartureTime() );
 
     }
 
     @Test
     public void givenRouteTdoToRoute__whenMaps__thenCorrect() {
         Date dateNow = new Date();
-        RouteDTO routeDTO = new RouteDTO();
-        routeDTO.setId( 1 );
-        routeDTO.setDate( dateNow );
-        routeDTO.setArrivalPoint( "arrivalPoint" );
-        routeDTO.setDeparturePoint( "departurePoint" );
-        routeDTO.setDepartureTime( "departureTime" );
-        routeDTO.setArrivalTime( "arrivalTime" );
+        RouteDto routeDto = new RouteDto();
+        routeDto.setId( 1 );
+        routeDto.setDate( dateNow );
+        routeDto.setArrivalPoint( "arrivalPoint" );
+        routeDto.setDeparturePoint( "departurePoint" );
+        routeDto.setDepartureTime( "departureTime" );
+        routeDto.setArrivalTime( "arrivalTime" );
 
-        Route route = RouteMapper.INSTANCE.routeDtoToRoute( routeDTO );
+        Route route = RouteMapper.INSTANCE.routeDtoToRoute( routeDto );
 
-        Assert.assertEquals( route.getId(), routeDTO.getId() );
-        Assert.assertEquals( route.getDate(), routeDTO.getDate() );
-        Assert.assertEquals( route.getDeparturePoint(), routeDTO.getDeparturePoint() );
-        Assert.assertEquals( route.getArrivalPoint(), routeDTO.getArrivalPoint() );
-        Assert.assertEquals( route.getArrivalTime(), routeDTO.getArrivalTime() );
-        Assert.assertEquals( route.getDepartureTime(), routeDTO.getDepartureTime() );
+        Assert.assertEquals( route.getId(), routeDto.getId() );
+        Assert.assertEquals( route.getDate(), routeDto.getDate() );
+        Assert.assertEquals( route.getDeparturePoint(), routeDto.getDeparturePoint() );
+        Assert.assertEquals( route.getArrivalPoint(), routeDto.getArrivalPoint() );
+        Assert.assertEquals( route.getArrivalTime(), routeDto.getArrivalTime() );
+        Assert.assertEquals( route.getDepartureTime(), routeDto.getDepartureTime() );
     }
 
 }

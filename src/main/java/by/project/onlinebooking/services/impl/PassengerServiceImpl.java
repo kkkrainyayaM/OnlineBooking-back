@@ -1,6 +1,6 @@
 package by.project.onlinebooking.services.impl;
 
-import by.project.onlinebooking.DTO.PassengerDTO;
+import by.project.onlinebooking.dto.PassengerDto;
 import by.project.onlinebooking.entities.Passenger;
 import by.project.onlinebooking.mappers.PassengerMapper;
 import by.project.onlinebooking.repositories.PassengersRepository;
@@ -21,7 +21,7 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public PassengerDTO add(PassengerDTO passenger) {
+    public PassengerDto add(PassengerDto passenger) {
         Passenger passengerPOJO = PassengerMapper.INSTANCE.passengerDtoToPassenger( passenger );
         return PassengerMapper.INSTANCE.passengerToPassengerDto( passengerRepository.save( passengerPOJO ) );
     }
@@ -40,7 +40,7 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public List<PassengerDTO> getAllByUserId(long id) {
+    public List<PassengerDto> getAllByUserId(long id) {
         return passengerRepository.findAll().stream()
                 .filter( passenger -> passenger.getIdUser() == id )
                 .map( PassengerMapper.INSTANCE::passengerToPassengerDto )
@@ -48,17 +48,17 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public List<PassengerDTO> getAllByRouteId(long id) {
+    public List<PassengerDto> getAllByRouteId(long id) {
         return passengerRepository.findAllById( Collections.singleton( id ) )
                 .stream().map( PassengerMapper.INSTANCE::passengerToPassengerDto )
                 .collect( Collectors.toList() );
     }
 
     @Override
-    public PassengerDTO update(PassengerDTO passenger) {
+    public PassengerDto update(PassengerDto passenger) {
         Passenger updatedPassenger = passengerRepository.getOne( passenger.getRouteId() );
-        updatedPassenger.setPointArrival( passenger.getArrivalPoint() );
-        updatedPassenger.setPointDeparture( passenger.getDeparturePoint() );
+        updatedPassenger.setArrivalPoint( passenger.getArrivalPoint() );
+        updatedPassenger.setDeparturePoint( passenger.getDeparturePoint() );
         return PassengerMapper.INSTANCE.passengerToPassengerDto( passengerRepository.save( updatedPassenger ) );
 
     }

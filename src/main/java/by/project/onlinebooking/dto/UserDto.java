@@ -1,10 +1,10 @@
-package by.project.onlinebooking.DTO;
+package by.project.onlinebooking.dto;
 
 import by.project.onlinebooking.entities.Role;
 import lombok.Data;
 
 @Data
-public class UserDTO {
+public class UserDto {
     private long id;
     private String firstName;
     private String lastName;

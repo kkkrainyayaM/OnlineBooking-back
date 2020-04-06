@@ -1,6 +1,6 @@
 package by.project.onlinebooking.services.impl;
 
-import by.project.onlinebooking.DTO.RouteDTO;
+import by.project.onlinebooking.dto.RouteDto;
 import by.project.onlinebooking.entities.Route;
 import by.project.onlinebooking.mappers.RouteMapper;
 import by.project.onlinebooking.repositories.RouteRepository;
@@ -24,30 +24,30 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public RouteDTO add(RouteDTO route) {
+    public RouteDto add(RouteDto route) {
         Route routePOJO = RouteMapper.INSTANCE.routeDtoToRoute( route );
         return RouteMapper.INSTANCE.routeToRouteDto( routeRepository.save( routePOJO ) );
     }
 
     @Override
-    public RouteDTO getById(long id) {
+    public RouteDto getById(long id) {
         return RouteMapper.INSTANCE.routeToRouteDto( routeRepository.getOne( id ) );
     }
 
     @Override
-    public List<RouteDTO> getAll() {
+    public List<RouteDto> getAll() {
         return routeRepository.findAll().stream()
                 .map( RouteMapper.INSTANCE::routeToRouteDto )
                 .collect( Collectors.toList() );
     }
 
     @Override
-    public RouteDTO update(RouteDTO route) {
+    public RouteDto update(RouteDto route) {
         Route updatedRoute = routeRepository.getOne( route.getId() );
-        updatedRoute.setTimeDeparture( route.getDepartureTime() );
-        updatedRoute.setTimeArrival( route.getArrivalTime() );
-        updatedRoute.setPointDeparture( route.getDeparturePoint() );
-        updatedRoute.setPointArrival( route.getArrivalPoint() );
+        updatedRoute.setDepartureTime( route.getDepartureTime() );
+        updatedRoute.setArrivalTime( route.getArrivalTime() );
+        updatedRoute.setDepartureTime( route.getDeparturePoint() );
+        updatedRoute.setArrivalPoint( route.getArrivalPoint() );
         updatedRoute.setDate( route.getDate() );
         return RouteMapper.INSTANCE.routeToRouteDto( routeRepository.save( updatedRoute ) );
     }

@@ -1,6 +1,6 @@
 package by.project.onlinebooking.services;
 
-import by.project.onlinebooking.DTO.UserDTO;
+import by.project.onlinebooking.dto.UserDto;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public interface UserService {
      * @param user - new User
      * @return added user
      */
-    UserDTO add(UserDTO user);
+    UserDto add(UserDto user);
 
     /**
      * Get a user by ID
@@ -20,14 +20,14 @@ public interface UserService {
      * @param id - user ID
      * @return user
      */
-    UserDTO getById(long id);
+    UserDto getById(long id);
 
     /**
      * Get list of all users
      *
      * @return a list of all users
      */
-    List<UserDTO> getAll();
+    List<UserDto> getAll();
 
     /**
      * Update user
@@ -35,7 +35,7 @@ public interface UserService {
      * @param user - existed user with updated fields
      * @return updated user
      */
-    UserDTO update(UserDTO user);
+    UserDto update(UserDto user);
 
     /**
      * Delete user by ID

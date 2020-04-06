@@ -1,16 +1,11 @@
 package by.project.onlinebooking.controllers;
 
-import by.project.onlinebooking.entities.Passenger;
-import by.project.onlinebooking.entities.User;
-import by.project.onlinebooking.exceptions.UserNotFoundException;
-import by.project.onlinebooking.repositories.PassengersRepository;
-import by.project.onlinebooking.repositories.UserRepository;
+import by.project.onlinebooking.dto.PassengerDto;
+import by.project.onlinebooking.services.PassengerService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -18,34 +13,39 @@ import java.util.List;
 @RequestMapping("/")
 public class PassengerController {
 
-    @Autowired
-    private PassengersRepository passengersRepository;
+    private final PassengerService passengerService;
 
-    @Autowired
-    private UserRepository userRepository;
+    public PassengerController(PassengerService passengerService) {
+        this.passengerService = passengerService;
+    }
 
-    @ApiOperation(value = "Get list of passengers")
-    @GetMapping("/admin/flights/{id}/passengers")
-    public List<User> getPassengers(@PathVariable long id) {
-        List<User> passengers = new ArrayList<>();
-        passengersRepository.findAllById( Collections.singleton( id ) )
-                .forEach( passenger -> passengers.add( userRepository
-                        .findById( passenger.getIdUser() ).get() ) );
-        return passengers;
+    @ApiOperation(value = "Get list of passengers of route")
+    @GetMapping("/flights/{id}/passengers")
+    public List<PassengerDto> getPassengersOfRoute(@PathVariable long id) {
+        return passengerService.getAllByRouteId( id );//?
     }
 
     @ApiOperation(value = "Add a passenger")
-    @PostMapping("/account/book")
-    public Passenger newPassenger(@RequestBody Passenger passenger) {
-        return passengersRepository.save( passenger );
+    @PostMapping("/passengers")
+    public PassengerDto newPassenger(@RequestBody PassengerDto passenger) {
+        return passengerService.add( passenger );
     }
 
-    @ApiOperation(value = "Delete a passenger")
-    @DeleteMapping("/account/{idUser}/flight/{idRoute}")
-    public void deletePassenger(@PathVariable(value = "idUser") long userId, @PathVariable(value = "idRoute") long routeId)
-            throws UserNotFoundException {
-        passengersRepository.findAllById( Collections.singleton( routeId ) )
-                .stream().filter( passenger -> passenger.getIdUser() == userId )
-                .forEach( passenger -> passengersRepository.delete( passenger ) );
+    @ApiOperation(value = "Delete a passenger by user id")
+    @DeleteMapping("/passengers/user/{id}")
+    public void deletePassengerByUserId(@PathVariable(value = "id") long id) {
+        passengerService.deleteByUserId( id );
+    }
+
+    @ApiOperation(value = "Delete a passenger by flight id")
+    @DeleteMapping("/passengers/flight/{id}")
+    public void deletePassengerByRouteId(@PathVariable(value = "id") long id) {
+        passengerService.deleteByRouteId( id );
+    }
+
+    @ApiOperation(value = "Update a passenger")
+    @PutMapping("/passengers")
+    public PassengerDto updatePassenger(@Valid @RequestBody PassengerDto passenger) {
+        return passengerService.update( passenger );
     }
 }

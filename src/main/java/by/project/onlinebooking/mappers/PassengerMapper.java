@@ -1,6 +1,6 @@
 package by.project.onlinebooking.mappers;
 
-import by.project.onlinebooking.DTO.PassengerDTO;
+import by.project.onlinebooking.dto.PassengerDto;
 import by.project.onlinebooking.entities.Passenger;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -10,7 +10,7 @@ public interface PassengerMapper {
 
     PassengerMapper INSTANCE = Mappers.getMapper( PassengerMapper.class );
 
-    PassengerDTO passengerToPassengerDto(Passenger passenger);
+    PassengerDto passengerToPassengerDto(Passenger passenger);
 
-    Passenger passengerDtoToPassenger(PassengerDTO passengerDTO);
+    Passenger passengerDtoToPassenger(PassengerDto passengerDTO);
 }

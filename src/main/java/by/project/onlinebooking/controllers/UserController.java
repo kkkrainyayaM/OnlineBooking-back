@@ -1,6 +1,6 @@
 package by.project.onlinebooking.controllers;
 
-import by.project.onlinebooking.DTO.UserDTO;
+import by.project.onlinebooking.dto.UserDto;
 import by.project.onlinebooking.services.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,25 +24,25 @@ public class UserController {
 
     @ApiOperation(value = "View a list of all users", response = List.class)
     @GetMapping("/users")
-    public List<UserDTO> getAll() {
+    public List<UserDto> getAll() {
         return userService.getAll();
     }
 
     @ApiOperation(value = "Get a user by ID")
     @GetMapping("/users/{id}")
-    public UserDTO getUser(@PathVariable long id) {
+    public UserDto getUser(@PathVariable long id) {
         return userService.getById( id );
     }
 
     @ApiOperation(value = "Add a user")
     @PostMapping("/users")
-    public UserDTO addUser(@Valid @RequestBody UserDTO user) {
+    public UserDto addUser(@Valid @RequestBody UserDto user) {
         return userService.add( user );
     }
 
     @ApiOperation(value = "Update a user")
     @PutMapping("/users")
-    public UserDTO updateUser(@Valid @RequestBody UserDTO user) {
+    public UserDto updateUser(@Valid @RequestBody UserDto user) {
         return userService.update( user );
     }
 
