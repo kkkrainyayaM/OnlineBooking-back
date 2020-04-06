@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "route_passengers", catalog = "routes")
+@Table(name = "passengers", catalog = "routes")
 public class Passenger {
 
     @Id
@@ -20,8 +20,8 @@ public class Passenger {
     private long idUser;
 
     @Column( nullable = false)
-    private String pointDeparture;
+    private String departurePoint;
 
     @Column( nullable = false)
-    private String pointArrival;
+    private String arrivalPoint;
 }
