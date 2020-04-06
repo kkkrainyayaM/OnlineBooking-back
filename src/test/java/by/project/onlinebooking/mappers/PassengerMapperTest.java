@@ -10,16 +10,16 @@ public class PassengerMapperTest {
     @Test
     public void givenPassengerToPassengerTdo__whenMaps__thenCorrect() {
         Passenger passenger = new Passenger();
-        passenger.setPointDeparture( "departurePoint" );
-        passenger.setPointArrival( "arrivalPoint" );
+        passenger.setDeparturePoint( "departurePoint" );
+        passenger.setArrivalPoint( "arrivalPoint" );
         passenger.setIdRoute( 1 );
         passenger.setIdUser( 1 );
 
         PassengerDTO passengerDto = PassengerMapper.INSTANCE.passengerToPassengerDto( passenger );
 
         Assert.assertEquals( passenger.getIdUser(), passengerDto.getUserId() );
-        Assert.assertEquals( passenger.getPointArrival(), passengerDto.getArrivalPoint() );
-        Assert.assertEquals( passenger.getPointDeparture(), passengerDto.getDeparturePoint() );
+        Assert.assertEquals( passenger.getArrivalPoint(), passengerDto.getArrivalPoint() );
+        Assert.assertEquals( passenger.getDeparturePoint(), passengerDto.getDeparturePoint() );
         Assert.assertEquals( passenger.getIdRoute(), passengerDto.getRouteId() );
 
     }
@@ -35,8 +35,8 @@ public class PassengerMapperTest {
         Passenger passenger = PassengerMapper.INSTANCE.passengerDtoToPassenger( passengerDto );
 
         Assert.assertEquals( passenger.getIdUser(), passengerDto.getUserId() );
-        Assert.assertEquals( passenger.getPointArrival(), passengerDto.getArrivalPoint() );
-        Assert.assertEquals( passenger.getPointDeparture(), passengerDto.getDeparturePoint() );
+        Assert.assertEquals( passenger.getArrivalPoint(), passengerDto.getArrivalPoint() );
+        Assert.assertEquals( passenger.getDeparturePoint(), passengerDto.getDeparturePoint() );
         Assert.assertEquals( passenger.getIdRoute(), passengerDto.getRouteId() );
 
     }

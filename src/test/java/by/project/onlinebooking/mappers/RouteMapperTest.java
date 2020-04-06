@@ -16,19 +16,19 @@ public class RouteMapperTest {
         Route route = new Route();
         route.setId( 1 );
         route.setDate( dateNow );
-        route.setPointArrival( "arrivalPoint" );
-        route.setPointDeparture( "departurePoint" );
-        route.setTimeDeparture( "departureTime" );
-        route.setTimeArrival( "arrivalTime" );
+        route.setArrivalPoint( "arrivalPoint" );
+        route.setDeparturePoint( "departurePoint" );
+        route.setDepartureTime( "departureTime" );
+        route.setArrivalTime( "arrivalTime" );
 
         RouteDTO routeDTO = RouteMapper.INSTANCE.routeToRouteDto( route );
 
         Assert.assertEquals( route.getId(), routeDTO.getId() );
         Assert.assertEquals( route.getDate(), routeDTO.getDate() );
-        Assert.assertEquals( route.getPointDeparture(), routeDTO.getDeparturePoint() );
-        Assert.assertEquals( route.getPointArrival(), routeDTO.getArrivalPoint() );
-        Assert.assertEquals( route.getTimeArrival(), routeDTO.getArrivalTime() );
-        Assert.assertEquals( route.getTimeDeparture(), routeDTO.getDepartureTime() );
+        Assert.assertEquals( route.getDeparturePoint(), routeDTO.getDeparturePoint() );
+        Assert.assertEquals( route.getArrivalPoint(), routeDTO.getArrivalPoint() );
+        Assert.assertEquals( route.getArrivalTime(), routeDTO.getArrivalTime() );
+        Assert.assertEquals( route.getDepartureTime(), routeDTO.getDepartureTime() );
 
     }
 
@@ -47,10 +47,10 @@ public class RouteMapperTest {
 
         Assert.assertEquals( route.getId(), routeDTO.getId() );
         Assert.assertEquals( route.getDate(), routeDTO.getDate() );
-        Assert.assertEquals( route.getPointDeparture(), routeDTO.getDeparturePoint() );
-        Assert.assertEquals( route.getPointArrival(), routeDTO.getArrivalPoint() );
-        Assert.assertEquals( route.getTimeArrival(), routeDTO.getArrivalTime() );
-        Assert.assertEquals( route.getTimeDeparture(), routeDTO.getDepartureTime() );
+        Assert.assertEquals( route.getDeparturePoint(), routeDTO.getDeparturePoint() );
+        Assert.assertEquals( route.getArrivalPoint(), routeDTO.getArrivalPoint() );
+        Assert.assertEquals( route.getArrivalTime(), routeDTO.getArrivalTime() );
+        Assert.assertEquals( route.getDepartureTime(), routeDTO.getDepartureTime() );
     }
 
 }
