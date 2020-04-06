@@ -4,8 +4,10 @@ import by.project.onlinebooking.DTO.UserDTO;
 import by.project.onlinebooking.entities.User;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    UserDTO userToUserDTO(User user);
+    UserDTO userToUserDto(User user);
+
+    User userDtoToUser(UserDTO userDTO);
 }
