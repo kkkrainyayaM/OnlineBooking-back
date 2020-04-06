@@ -1,14 +1,11 @@
 package by.project.onlinebooking.mappers;
 
 import by.project.onlinebooking.DTO.PassengerDTO;
-import by.project.onlinebooking.DTO.UserDTO;
 import by.project.onlinebooking.entities.Passenger;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class PassengerMapperTest {
-
-    private UserDTO passengerDto;
 
     @Test
     public void givenPassengerToPassengerTdo__whenMaps__thenCorrect() {
