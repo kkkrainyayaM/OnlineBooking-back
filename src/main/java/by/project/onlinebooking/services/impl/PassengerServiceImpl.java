@@ -1,9 +1,15 @@
 package by.project.onlinebooking.services.impl;
 
 import by.project.onlinebooking.dto.PassengerDto;
+import by.project.onlinebooking.dto.PassengerWithRouteDto;
+import by.project.onlinebooking.dto.PassengerWithUserDto;
 import by.project.onlinebooking.entities.Passenger;
 import by.project.onlinebooking.mappers.PassengerMapper;
+import by.project.onlinebooking.mappers.PassengerWithRouteMapper;
+import by.project.onlinebooking.mappers.PassengerWithUserMapper;
 import by.project.onlinebooking.repositories.PassengersRepository;
+import by.project.onlinebooking.repositories.RouteRepository;
+import by.project.onlinebooking.repositories.UserRepository;
 import by.project.onlinebooking.services.PassengerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +23,11 @@ import java.util.stream.Collectors;
 public class PassengerServiceImpl implements PassengerService {
 
     private final PassengersRepository passengerRepository;
+    private final UserRepository userRepository;
     private final PassengerMapper passengerMapper;
+    private final RouteRepository routeRepository;
+    private final PassengerWithUserMapper passengerWithUserMapper;
+    private final PassengerWithRouteMapper passengerWithRouteMapper;
 
     @Override
     public PassengerDto add(PassengerDto passenger) {
@@ -39,17 +49,20 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public List<PassengerDto> getAllByUserId(long id) {
+    public List<PassengerWithRouteDto> getAllByUserId(long id) {
         return passengerRepository.findAll().stream()
                 .filter( passenger -> passenger.getUserId() == id )
-                .map( passengerMapper::passengerToPassengerDto )
+                .map( passenger -> passengerWithRouteMapper
+                        .passengerToPassengerWithRouteDto( passenger, routeRepository.getOne( passenger.getRouteId() ) ) )
                 .collect( Collectors.toList() );
     }
 
     @Override
-    public List<PassengerDto> getAllByRouteId(long id) {
-        return passengerRepository.findAllById( Collections.singleton( id ) )
-                .stream().map( passengerMapper::passengerToPassengerDto )
+    public List<PassengerWithUserDto> getAllByRouteId(long id) {
+        return passengerRepository.findAll().stream()
+                .filter( passenger -> passenger.getUserId() == id )
+                .map( passenger -> passengerWithUserMapper
+                        .passengerToPassengerWithUserDto( passenger, userRepository.getOne( passenger.getUserId() ) ) )
                 .collect( Collectors.toList() );
     }
 

@@ -1,6 +1,7 @@
 package by.project.onlinebooking.controllers;
 
 import by.project.onlinebooking.dto.PassengerDto;
+import by.project.onlinebooking.dto.PassengerWithUserDto;
 import by.project.onlinebooking.services.PassengerService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,14 @@ public class PassengerController {
 
     @ApiOperation(value = "Get list of passengers of route")
     @GetMapping("/flights/{id}/passengers")
-    public List<PassengerDto> getPassengersOfRoute(@PathVariable long id) {
-        return passengerService.getAllByRouteId( id );//?
+    public List<PassengerWithUserDto> getPassengersOfRoute(@PathVariable long id) {
+        return passengerService.getAllByRouteId( id );
+    }
+
+    @ApiOperation(value = "Get list of routes of passenger")
+    @GetMapping("/passenger/{id}/flights")
+    public List<PassengerWithUserDto> getRoutesOfPassenger(@PathVariable long id) {
+        return passengerService.getAllByRouteId( id );
     }
 
     @ApiOperation(value = "Add a passenger")
