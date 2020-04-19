@@ -8,6 +8,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.Date;
 
+
 public class RouteMapperTest {
 
     private final RouteMapper routeMapper = Mappers.getMapper( RouteMapper.class );

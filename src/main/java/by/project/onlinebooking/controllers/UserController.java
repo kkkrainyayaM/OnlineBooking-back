@@ -4,6 +4,7 @@ import by.project.onlinebooking.dto.UserDto;
 import by.project.onlinebooking.services.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,13 +15,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/")
 @Api(value = "Online-booking system")
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @ApiOperation(value = "View a list of all users", response = List.class)
     @GetMapping("/users")
@@ -51,6 +49,4 @@ public class UserController {
     public void deleteUser(@PathVariable(value = "id") long id) {
         userService.delete( id );
     }
-
-
 }

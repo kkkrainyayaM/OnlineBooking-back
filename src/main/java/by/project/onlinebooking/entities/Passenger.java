@@ -14,14 +14,17 @@ public class Passenger {
 
     @Id
     @Column( nullable = false)
-    private long routeId;
-
-    @Column( nullable = false)
-    private long userId;
+    private long id;
 
     @Column( nullable = false)
     private String departurePoint;
 
     @Column( nullable = false)
     private String arrivalPoint;
+
+    @Column(nullable = false)
+    private long routeId;
+
+    @Column(nullable = false)
+    private long userId;
 }

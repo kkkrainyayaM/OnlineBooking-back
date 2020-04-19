@@ -4,6 +4,7 @@ import by.project.onlinebooking.dto.PassengerDto;
 import by.project.onlinebooking.dto.PassengerWithUserDto;
 import by.project.onlinebooking.services.PassengerService;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -12,13 +13,10 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class PassengerController {
 
     private final PassengerService passengerService;
-
-    public PassengerController(PassengerService passengerService) {
-        this.passengerService = passengerService;
-    }
 
     @ApiOperation(value = "Get list of passengers of route")
     @GetMapping("/flights/{id}/passengers")

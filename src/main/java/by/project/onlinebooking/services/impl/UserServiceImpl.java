@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service("UserService")
+@Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
@@ -21,14 +21,14 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public UserDto add(UserDto user) {
-        User userPOJO = userMapper.userDtoToUser( user );
-        return userMapper.userToUserDto( userRepository.save( userPOJO ) );
+    public UserDto add(UserDto newUser) {
+        User user = userMapper.userDtoToUser( newUser );
+        return userMapper.userToUserDto( userRepository.save( user ) );
     }
 
     @Override
     public UserDto getById(long id) {
-        return userMapper.userToUserDto( userRepository.getOne( id ) );
+        return userMapper.userToUserDto( userRepository.findById( id ).get() );
     }
 
     @Override
@@ -40,10 +40,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto update(UserDto user) {
-        User updatedUser = userRepository.getOne( user.getId() );
+        User updatedUser = userRepository.findById( user.getId() ).get();
         updatedUser.setFirstName( user.getFirstName() );
         updatedUser.setLastName( user.getLastName() );
-        updatedUser.setPassword( user.getPassword() );
         updatedUser.setPhone( user.getPhone() );
         return userMapper.userToUserDto( userRepository.save( updatedUser ) );
     }
@@ -51,7 +50,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(long id) {
         passengerService.deleteByUserId( id );
-        User user = userRepository.getOne( id );
+        User user = userRepository.findById( id ).get();
         userRepository.delete( user );
     }
 }

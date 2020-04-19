@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
 
+
 public class UserMapperTest {
 
     private final UserMapper userMapper = Mappers.getMapper( UserMapper.class );
@@ -26,9 +27,7 @@ public class UserMapperTest {
         Assert.assertEquals( user.getId(), UserDto.getId() );
         Assert.assertEquals( user.getFirstName(), UserDto.getFirstName() );
         Assert.assertEquals( user.getLastName(), UserDto.getLastName() );
-        Assert.assertEquals( user.getPassword(), UserDto.getPassword() );
         Assert.assertEquals( user.getPhone(), UserDto.getPhone() );
-        Assert.assertEquals( user.getRole(), UserDto.getRole() );
 
     }
 
@@ -38,18 +37,14 @@ public class UserMapperTest {
         userDto.setId( 1 );
         userDto.setFirstName( "firstName" );
         userDto.setLastName( "lastName" );
-        userDto.setPassword( "password" );
         userDto.setPhone( "phone" );
-        userDto.setRole( Role.USER );
 
         User user = userMapper.userDtoToUser( userDto );
 
         Assert.assertEquals( userDto.getId(), user.getId() );
         Assert.assertEquals( userDto.getFirstName(), user.getFirstName() );
         Assert.assertEquals( userDto.getLastName(), user.getLastName() );
-        Assert.assertEquals( userDto.getPassword(), user.getPassword() );
         Assert.assertEquals( userDto.getPhone(), user.getPhone() );
-        Assert.assertEquals( userDto.getRole(), user.getRole() );
 
     }
 

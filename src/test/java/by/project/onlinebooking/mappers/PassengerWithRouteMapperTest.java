@@ -32,6 +32,5 @@ public class PassengerWithRouteMapperTest {
         Assert.assertEquals( passenger.getDeparturePoint(), passengerDto.getDeparturePoint() );
         Assert.assertEquals( route.getDate(), passengerDto.getDate() );
         Assert.assertEquals( route.getDepartureTime(), passengerDto.getDepartureTime() );
-
     }
 }

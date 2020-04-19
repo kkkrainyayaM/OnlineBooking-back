@@ -9,6 +9,7 @@ import java.util.Date;
 @Entity
 @Table(name = "route", catalog = "routes")
 public class Route {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column( nullable = false)
@@ -28,5 +29,4 @@ public class Route {
 
     @Column( nullable = false)
     private String arrivalPoint;
-
 }

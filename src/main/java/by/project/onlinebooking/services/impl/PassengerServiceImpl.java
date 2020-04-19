@@ -14,11 +14,10 @@ import by.project.onlinebooking.services.PassengerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service("PassengerService")
+@Service
 @RequiredArgsConstructor
 public class PassengerServiceImpl implements PassengerService {
 
@@ -30,49 +29,44 @@ public class PassengerServiceImpl implements PassengerService {
     private final PassengerWithRouteMapper passengerWithRouteMapper;
 
     @Override
-    public PassengerDto add(PassengerDto passenger) {
-        Passenger passengerPOJO = passengerMapper.passengerDtoToPassenger( passenger );
-        return passengerMapper.passengerToPassengerDto( passengerRepository.save( passengerPOJO ) );
+    public PassengerDto add(PassengerDto newPassenger) {
+        Passenger passenger = passengerMapper.passengerDtoToPassenger( newPassenger );
+        return passengerMapper.passengerToPassengerDto( passengerRepository.save( passenger ) );
     }
 
     @Override
     public void deleteByUserId(long id) {
-        passengerRepository.findAll().stream()
-                .filter( pas -> pas.getUserId() == id )
-                .forEach( passengerRepository::delete );
+        passengerRepository.deleteByUserId( id );
     }
 
     @Override
     public void deleteByRouteId(long id) {
-        passengerRepository.findAllById( Collections.singleton( id ) )
-                .forEach( passengerRepository::delete );
+        passengerRepository.deleteByRouteId( id );
     }
 
     @Override
     public List<PassengerWithRouteDto> getAllByUserId(long id) {
-        return passengerRepository.findAll().stream()
-                .filter( passenger -> passenger.getUserId() == id )
+        return passengerRepository.getAllByUserId( id ).stream()
                 .map( passenger -> passengerWithRouteMapper
-                        .passengerToPassengerWithRouteDto( passenger, routeRepository.getOne( passenger.getRouteId() ) ) )
+                        .passengerToPassengerWithRouteDto( passenger, routeRepository.findById( passenger.getRouteId() )
+                                .get() ) )
                 .collect( Collectors.toList() );
     }
 
     @Override
     public List<PassengerWithUserDto> getAllByRouteId(long id) {
-        return passengerRepository.findAll().stream()
-                .filter( passenger -> passenger.getUserId() == id )
+        return passengerRepository.getAllByRouteId( id ).stream()
                 .map( passenger -> passengerWithUserMapper
-                        .passengerToPassengerWithUserDto( passenger, userRepository.getOne( passenger.getUserId() ) ) )
+                        .passengerToPassengerWithUserDto( passenger, userRepository.findById( passenger.getUserId() )
+                                .get() ) )
                 .collect( Collectors.toList() );
     }
 
     @Override
     public PassengerDto update(PassengerDto passenger) {
-        Passenger updatedPassenger = passengerRepository.getOne( passenger.getRouteId() );
+        Passenger updatedPassenger = passengerRepository.findById( passenger.getRouteId() ).get();
         updatedPassenger.setArrivalPoint( passenger.getArrivalPoint() );
         updatedPassenger.setDeparturePoint( passenger.getDeparturePoint() );
         return passengerMapper.passengerToPassengerDto( passengerRepository.save( updatedPassenger ) );
-
     }
 }
-

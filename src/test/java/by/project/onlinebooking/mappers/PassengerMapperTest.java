@@ -41,7 +41,5 @@ public class PassengerMapperTest {
         Assert.assertEquals( passenger.getArrivalPoint(), passengerDto.getArrivalPoint() );
         Assert.assertEquals( passenger.getDeparturePoint(), passengerDto.getDeparturePoint() );
         Assert.assertEquals( passenger.getRouteId(), passengerDto.getRouteId() );
-
     }
-
 }

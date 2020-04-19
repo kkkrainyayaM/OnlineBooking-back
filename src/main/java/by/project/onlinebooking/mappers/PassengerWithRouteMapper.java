@@ -11,8 +11,8 @@ public interface PassengerWithRouteMapper {
 
     @Mapping(source = "route.date", target = "date")
     @Mapping(source = "route.departureTime", target = "departureTime")
+    @Mapping(source = "passenger.id", target = "id")
     @Mapping(source = "passenger.departurePoint", target = "departurePoint")
     @Mapping(source = "passenger.arrivalPoint", target = "arrivalPoint")
     PassengerWithRouteDto passengerToPassengerWithRouteDto(Passenger passenger, Route route);
-
 }

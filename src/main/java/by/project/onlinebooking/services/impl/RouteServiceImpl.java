@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service("RouteService")
+@Service
 @RequiredArgsConstructor
 public class RouteServiceImpl implements RouteService {
 
@@ -21,14 +21,14 @@ public class RouteServiceImpl implements RouteService {
     private final RouteMapper routeMapper;
 
     @Override
-    public RouteDto add(RouteDto route) {
-        Route routePOJO = routeMapper.routeDtoToRoute( route );
-        return routeMapper.routeToRouteDto( routeRepository.save( routePOJO ) );
+    public RouteDto add(RouteDto newRoute) {
+        Route route = routeMapper.routeDtoToRoute( newRoute );
+        return routeMapper.routeToRouteDto( routeRepository.save( route ) );
     }
 
     @Override
     public RouteDto getById(long id) {
-        return routeMapper.routeToRouteDto( routeRepository.getOne( id ) );
+        return routeMapper.routeToRouteDto( routeRepository.findById( id ).get() );
     }
 
     @Override
@@ -40,7 +40,7 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     public RouteDto update(RouteDto route) {
-        Route updatedRoute = routeRepository.getOne( route.getId() );
+        Route updatedRoute = routeRepository.findById( route.getId() ).get();
         updatedRoute.setDepartureTime( route.getDepartureTime() );
         updatedRoute.setArrivalTime( route.getArrivalTime() );
         updatedRoute.setDepartureTime( route.getDeparturePoint() );
@@ -52,7 +52,7 @@ public class RouteServiceImpl implements RouteService {
     @Override
     public void delete(long id) {
         passengerService.deleteByRouteId( id );
-        Route route = routeRepository.getOne( id );
+        Route route = routeRepository.findById( id ).get();
         routeRepository.delete( route );
     }
 }

@@ -3,6 +3,7 @@ package by.project.onlinebooking.controllers;
 import by.project.onlinebooking.dto.RouteDto;
 import by.project.onlinebooking.services.RouteService;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -11,13 +12,10 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class RouteController {
 
     private final RouteService routeService;
-
-    public RouteController(RouteService routeService) {
-        this.routeService = routeService;
-    }
 
     @ApiOperation(value = "Get a list of all flights")
     @GetMapping("/flights")
