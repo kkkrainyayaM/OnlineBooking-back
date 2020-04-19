@@ -39,12 +39,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto update(UserDto user) {
-        User updatedUser = userRepository.findById( user.getId() ).get();
-        updatedUser.setFirstName( user.getFirstName() );
-        updatedUser.setLastName( user.getLastName() );
-        updatedUser.setPhone( user.getPhone() );
-        return userMapper.userToUserDto( userRepository.save( updatedUser ) );
+    public UserDto update(UserDto newUser) {
+        User user = userRepository.findById( newUser.getId() ).get();
+        User updatedUser = userRepository.save( userMapper.update( user, newUser ) );
+        return userMapper.userToUserDto( updatedUser );
     }
 
     @Override

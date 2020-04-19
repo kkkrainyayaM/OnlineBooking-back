@@ -9,5 +9,5 @@ public interface RouteMapper {
 
     RouteDto routeToRouteDto(Route route);
 
-    Route routeDtoToRoute(RouteDto routeDTO);
+    Route routeDtoToRoute(RouteDto routeDto);
 }

@@ -10,4 +10,6 @@ public interface PassengerMapper {
     PassengerDto passengerToPassengerDto(Passenger passenger);
 
     Passenger passengerDtoToPassenger(PassengerDto passengerDto);
+
+    Passenger update(Passenger passenger);
 }

@@ -64,9 +64,7 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public PassengerDto update(PassengerDto passenger) {
-        Passenger updatedPassenger = passengerRepository.findById( passenger.getRouteId() ).get();
-        updatedPassenger.setArrivalPoint( passenger.getArrivalPoint() );
-        updatedPassenger.setDeparturePoint( passenger.getDeparturePoint() );
-        return passengerMapper.passengerToPassengerDto( passengerRepository.save( updatedPassenger ) );
+        passengerRepository.save( passengerMapper.passengerDtoToPassenger( passenger ) );
+        return passenger;
     }
 }

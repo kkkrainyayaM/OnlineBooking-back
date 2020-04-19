@@ -40,13 +40,8 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     public RouteDto update(RouteDto route) {
-        Route updatedRoute = routeRepository.findById( route.getId() ).get();
-        updatedRoute.setDepartureTime( route.getDepartureTime() );
-        updatedRoute.setArrivalTime( route.getArrivalTime() );
-        updatedRoute.setDepartureTime( route.getDeparturePoint() );
-        updatedRoute.setArrivalPoint( route.getArrivalPoint() );
-        updatedRoute.setDate( route.getDate() );
-        return routeMapper.routeToRouteDto( routeRepository.save( updatedRoute ) );
+        routeRepository.save( routeMapper.routeDtoToRoute( route ) );
+        return route;
     }
 
     @Override
