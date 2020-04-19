@@ -8,13 +8,12 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.Date;
 
-
 public class RouteMapperTest {
 
     private final RouteMapper routeMapper = Mappers.getMapper( RouteMapper.class );
 
     @Test
-    public void givenRouteToRouteTdo__whenMaps__thenCorrect() {
+    public void routeToTdoMapping() {
         Date dateNow = new Date();
         Route route = new Route();
         route.setId( 1 );
@@ -32,11 +31,10 @@ public class RouteMapperTest {
         Assert.assertEquals( route.getArrivalPoint(), RouteDto.getArrivalPoint() );
         Assert.assertEquals( route.getArrivalTime(), RouteDto.getArrivalTime() );
         Assert.assertEquals( route.getDepartureTime(), RouteDto.getDepartureTime() );
-
     }
 
     @Test
-    public void givenRouteTdoToRoute__whenMaps__thenCorrect() {
+    public void tdoToRouteMapping() {
         Date dateNow = new Date();
         RouteDto routeDto = new RouteDto();
         routeDto.setId( 1 );
@@ -55,5 +53,4 @@ public class RouteMapperTest {
         Assert.assertEquals( route.getArrivalTime(), routeDto.getArrivalTime() );
         Assert.assertEquals( route.getDepartureTime(), routeDto.getDepartureTime() );
     }
-
 }

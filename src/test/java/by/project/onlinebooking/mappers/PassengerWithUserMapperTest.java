@@ -12,7 +12,7 @@ public class PassengerWithUserMapperTest {
     private final PassengerWithUserMapper passengerMapper = Mappers.getMapper( PassengerWithUserMapper.class );
 
     @Test
-    public void givenPassengerToPassengerWithUserTdo__whenMaps__thenCorrect() {
+    public void passengerWithUserToTdo() {
         Passenger passenger = new Passenger();
         passenger.setDeparturePoint( "departurePoint" );
         passenger.setArrivalPoint( "arrivalPoint" );
@@ -30,6 +30,5 @@ public class PassengerWithUserMapperTest {
         Assert.assertEquals( passenger.getDeparturePoint(), passengerDto.getDeparturePoint() );
         Assert.assertEquals( user.getFirstName(), passengerDto.getFirstName() );
         Assert.assertEquals( user.getPhone(), passengerDto.getPhone() );
-
     }
 }

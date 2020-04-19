@@ -14,7 +14,7 @@ public class PassengerWithRouteMapperTest {
     private final PassengerWithRouteMapper passengerMapper = Mappers.getMapper( PassengerWithRouteMapper.class );
 
     @Test
-    public void givenPassengerToPassengerTdo__whenMaps__thenCorrect() {
+    public void passengerToTdoMapping() {
         Passenger passenger = new Passenger();
         passenger.setDeparturePoint( "departurePoint" );
         passenger.setArrivalPoint( "arrivalPoint" );

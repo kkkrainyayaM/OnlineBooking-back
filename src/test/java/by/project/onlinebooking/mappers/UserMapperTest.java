@@ -13,7 +13,7 @@ public class UserMapperTest {
     private final UserMapper userMapper = Mappers.getMapper( UserMapper.class );
 
     @Test
-    public void givenUserToUserTdo__whenMaps__thenCorrect() {
+    public void userToTdoMapping() {
         User user = new User();
         user.setId( 1 );
         user.setFirstName( "firstName" );
@@ -28,11 +28,10 @@ public class UserMapperTest {
         Assert.assertEquals( user.getFirstName(), UserDto.getFirstName() );
         Assert.assertEquals( user.getLastName(), UserDto.getLastName() );
         Assert.assertEquals( user.getPhone(), UserDto.getPhone() );
-
     }
 
     @Test
-    public void givenUserTdoToUser__whenMaps__thenCorrect() {
+    public void tdoToUserMapping() {
         UserDto userDto = new UserDto();
         userDto.setId( 1 );
         userDto.setFirstName( "firstName" );
@@ -45,8 +44,5 @@ public class UserMapperTest {
         Assert.assertEquals( userDto.getFirstName(), user.getFirstName() );
         Assert.assertEquals( userDto.getLastName(), user.getLastName() );
         Assert.assertEquals( userDto.getPhone(), user.getPhone() );
-
     }
-
-
 }

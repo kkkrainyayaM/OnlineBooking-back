@@ -11,7 +11,7 @@ public class PassengerMapperTest {
     private final PassengerMapper passengerMapper = Mappers.getMapper( PassengerMapper.class );
 
     @Test
-    public void givenPassengerToPassengerTdo__whenMaps__thenCorrect() {
+    public void passengerToTdoMapping() {
         Passenger passenger = new Passenger();
         passenger.setDeparturePoint( "departurePoint" );
         passenger.setArrivalPoint( "arrivalPoint" );
@@ -24,11 +24,10 @@ public class PassengerMapperTest {
         Assert.assertEquals( passenger.getArrivalPoint(), passengerDto.getArrivalPoint() );
         Assert.assertEquals( passenger.getDeparturePoint(), passengerDto.getDeparturePoint() );
         Assert.assertEquals( passenger.getRouteId(), passengerDto.getRouteId() );
-
     }
 
     @Test
-    public void givenPassengerTdoToPassenger__whenMaps__thenCorrect() {
+    public void tdoToPassengerMapping() {
         PassengerDto passengerDto = new PassengerDto();
         passengerDto.setDeparturePoint( "departurePoint" );
         passengerDto.setArrivalPoint( "arrivalPoint" );
