@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "route", catalog = "routes")
+@Table(name = "route")
 public class Route {
 
     @Id

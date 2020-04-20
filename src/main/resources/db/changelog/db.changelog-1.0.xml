@@ -56,6 +56,12 @@
             <column name="id" type="INT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
+            <column name="route_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
             <column name="departure_point" type="VARCHAR(45)">
                 <constraints nullable="false"/>
             </column>
@@ -64,40 +70,18 @@
             </column>
         </createTable>
 
-    </changeSet>
-
-    <changeSet author="mari" id="4">
-
-        <createTable tableName="route_passenger">
-            <column name="passenger_id" type="INT">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="route_id" type="INT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="user_id" type="INT">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addForeignKeyConstraint baseTableName="route_passenger"
-                                 baseColumnNames="user_id"
-                                 constraintName="fk_user_id"
-                                 referencedTableName="user"
-                                 referencedColumnNames="id"/>
-
-        <addForeignKeyConstraint baseTableName="route_passenger"
+        <addForeignKeyConstraint baseTableName="passenger"
                                  baseColumnNames="route_id"
                                  constraintName="fk_route_id"
                                  referencedTableName="route"
                                  referencedColumnNames="id"/>
 
-        <addForeignKeyConstraint baseTableName="route_passenger"
-                                 baseColumnNames="passenger_id"
-                                 constraintName="fk_passenger_id"
-                                 referencedTableName="passenger"
+        <addForeignKeyConstraint baseTableName="passenger"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_user_id"
+                                 referencedTableName="user"
                                  referencedColumnNames="id"/>
 
-    </changeSet>
 
+    </changeSet>
 </databaseChangeLog>
