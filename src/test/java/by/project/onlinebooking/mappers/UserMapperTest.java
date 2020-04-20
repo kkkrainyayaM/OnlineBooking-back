@@ -44,5 +44,7 @@ public class UserMapperTest {
         Assert.assertEquals( userDto.getFirstName(), user.getFirstName() );
         Assert.assertEquals( userDto.getLastName(), user.getLastName() );
         Assert.assertEquals( userDto.getPhone(), user.getPhone() );
+        Assert.assertEquals( Role.USER, user.getRole() );
+        Assert.assertNotNull( user.getPassword() );
     }
 }
