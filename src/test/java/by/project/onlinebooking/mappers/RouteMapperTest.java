@@ -2,11 +2,10 @@ package by.project.onlinebooking.mappers;
 
 import by.project.onlinebooking.dto.RouteDto;
 import by.project.onlinebooking.entities.Route;
+import by.project.onlinebooking.helpers.RouteGenerator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
-
-import java.util.Date;
 
 public class RouteMapperTest {
 
@@ -14,14 +13,7 @@ public class RouteMapperTest {
 
     @Test
     public void routeToTdoMapping() {
-        Date dateNow = new Date();
-        Route route = new Route();
-        route.setId( 1 );
-        route.setDate( dateNow );
-        route.setArrivalPoint( "arrivalPoint" );
-        route.setDeparturePoint( "departurePoint" );
-        route.setDepartureTime( "departureTime" );
-        route.setArrivalTime( "arrivalTime" );
+        Route route = RouteGenerator.generate();
 
         RouteDto RouteDto = routeMapper.routeToRouteDto( route );
 
@@ -35,14 +27,7 @@ public class RouteMapperTest {
 
     @Test
     public void tdoToRouteMapping() {
-        Date dateNow = new Date();
-        RouteDto routeDto = new RouteDto();
-        routeDto.setId( 1 );
-        routeDto.setDate( dateNow );
-        routeDto.setArrivalPoint( "arrivalPoint" );
-        routeDto.setDeparturePoint( "departurePoint" );
-        routeDto.setDepartureTime( "departureTime" );
-        routeDto.setArrivalTime( "arrivalTime" );
+        RouteDto routeDto = RouteGenerator.generateDto();
 
         Route route = routeMapper.routeDtoToRoute( routeDto );
 

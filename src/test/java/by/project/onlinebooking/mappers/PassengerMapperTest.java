@@ -2,6 +2,7 @@ package by.project.onlinebooking.mappers;
 
 import by.project.onlinebooking.dto.PassengerDto;
 import by.project.onlinebooking.entities.Passenger;
+import by.project.onlinebooking.helpers.PassengerGenerator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
@@ -12,11 +13,7 @@ public class PassengerMapperTest {
 
     @Test
     public void passengerToTdoMapping() {
-        Passenger passenger = new Passenger();
-        passenger.setDeparturePoint( "departurePoint" );
-        passenger.setArrivalPoint( "arrivalPoint" );
-        passenger.setRouteId( 1 );
-        passenger.setUserId( 1 );
+        Passenger passenger = PassengerGenerator.generate();
 
         PassengerDto passengerDto = passengerMapper.passengerToPassengerDto( passenger );
 
@@ -28,11 +25,7 @@ public class PassengerMapperTest {
 
     @Test
     public void tdoToPassengerMapping() {
-        PassengerDto passengerDto = new PassengerDto();
-        passengerDto.setDeparturePoint( "departurePoint" );
-        passengerDto.setArrivalPoint( "arrivalPoint" );
-        passengerDto.setRouteId( 1 );
-        passengerDto.setUserId( 1 );
+        PassengerDto passengerDto = PassengerGenerator.generateDto();
 
         Passenger passenger = passengerMapper.passengerDtoToPassenger( passengerDto );
 

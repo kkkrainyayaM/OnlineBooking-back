@@ -3,6 +3,8 @@ package by.project.onlinebooking.mappers;
 import by.project.onlinebooking.dto.PassengerWithUserDto;
 import by.project.onlinebooking.entities.Passenger;
 import by.project.onlinebooking.entities.User;
+import by.project.onlinebooking.helpers.PassengerGenerator;
+import by.project.onlinebooking.helpers.UserGenerator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
@@ -13,15 +15,9 @@ public class PassengerWithUserMapperTest {
 
     @Test
     public void passengerWithUserToTdo() {
-        Passenger passenger = new Passenger();
-        passenger.setDeparturePoint( "departurePoint" );
-        passenger.setArrivalPoint( "arrivalPoint" );
-        passenger.setRouteId( 1 );
-        passenger.setUserId( 1 );
+        Passenger passenger = PassengerGenerator.generate();
 
-        User user = new User();
-        user.setFirstName( "firstName" );
-        user.setPhone( "phone" );
+        User user = UserGenerator.generate();
 
         PassengerWithUserDto passengerDto = passengerMapper.passengerToPassengerWithUserDto( passenger, user );
 

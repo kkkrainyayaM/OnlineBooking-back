@@ -2,9 +2,11 @@ package by.project.onlinebooking.controllers;
 
 import by.project.onlinebooking.dto.PassengerDto;
 import by.project.onlinebooking.entities.Passenger;
-import by.project.onlinebooking.entities.Role;
 import by.project.onlinebooking.entities.Route;
 import by.project.onlinebooking.entities.User;
+import by.project.onlinebooking.helpers.PassengerGenerator;
+import by.project.onlinebooking.helpers.RouteGenerator;
+import by.project.onlinebooking.helpers.UserGenerator;
 import by.project.onlinebooking.repositories.PassengersRepository;
 import by.project.onlinebooking.repositories.RouteRepository;
 import by.project.onlinebooking.repositories.UserRepository;
@@ -18,7 +20,6 @@ import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Date;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
@@ -47,29 +48,9 @@ public class PassengerControllerIT {
     @Test
     public void addPassengerWithSuccessStatusTest() {
 
-        PassengerDto newPassenger = new PassengerDto();
-        newPassenger.setId( 1 );
-        newPassenger.setUserId( 1 );
-        newPassenger.setRouteId( 1 );
-        newPassenger.setArrivalPoint( "arrPoint" );
-        newPassenger.setDeparturePoint( "depPoint" );
-
-        User user = new User();
-        user.setId( 1 );
-        user.setFirstName( "firstName" );
-        user.setLastName( "lastName" );
-        user.setPassword( "password" );
-        user.setRole( Role.USER );
-        user.setPhone( "phone" );
-
-        Date dateNow = new Date();
-        Route route = new Route();
-        route.setId( 1 );
-        route.setDate( dateNow );
-        route.setArrivalPoint( "arrivalPoint" );
-        route.setDeparturePoint( "departurePoint" );
-        route.setDepartureTime( "11:00" );
-        route.setArrivalTime( "11:00" );
+        PassengerDto newPassenger = PassengerGenerator.generateDto();
+        User user = UserGenerator.generate();
+        Route route = RouteGenerator.generate();
 
         userRepository.save( user );
         routeRepository.save( route );
