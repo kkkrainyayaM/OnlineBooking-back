@@ -10,6 +10,7 @@ import by.project.onlinebooking.helpers.UserGenerator;
 import by.project.onlinebooking.repositories.PassengersRepository;
 import by.project.onlinebooking.repositories.RouteRepository;
 import by.project.onlinebooking.repositories.UserRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,15 +47,24 @@ public class PassengerControllerIT {
     private static final int PORT = 8080;
     private static final String BASE_URL = "http://localhost:";
 
-    @Test
-    public void addPassengerWithSuccessStatusTest() {
-
-        PassengerDto newPassenger = PassengerGenerator.generateDto();
+    @Before
+    public void setSource() {
+        Passenger passenger = PassengerGenerator.generate();
         User user = UserGenerator.generate();
         Route route = RouteGenerator.generate();
 
+        passengersRepository.deleteAll();
+        userRepository.deleteAll();
+        routeRepository.deleteAll();
         userRepository.save( user );
         routeRepository.save( route );
+        passengersRepository.save( passenger );
+    }
+
+    @Test
+    public void addPassengerWithSuccessStatusTest() {
+        passengersRepository.deleteAll();
+        PassengerDto newPassenger = PassengerGenerator.generateDto();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType( MediaType.APPLICATION_JSON );
@@ -76,17 +86,6 @@ public class PassengerControllerIT {
 
     @Test
     public void getPassengersOfRouteWithSuccessStatusTest() {
-        Passenger passenger = PassengerGenerator.generate();
-        User user = UserGenerator.generate();
-        Route route = RouteGenerator.generate();
-
-        passengersRepository.deleteAll();
-        userRepository.deleteAll();
-        routeRepository.deleteAll();
-        userRepository.save( user );
-        routeRepository.save( route );
-        passengersRepository.save( passenger );
-
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> request = new HttpEntity<>( null, headers );
 
@@ -99,17 +98,6 @@ public class PassengerControllerIT {
 
     @Test
     public void getRoutesOfPassengerWithSuccessStatusTest() {
-        Passenger passenger = PassengerGenerator.generate();
-        User user = UserGenerator.generate();
-        Route route = RouteGenerator.generate();
-
-        passengersRepository.deleteAll();
-        userRepository.deleteAll();
-        routeRepository.deleteAll();
-        userRepository.save( user );
-        routeRepository.save( route );
-        passengersRepository.save( passenger );
-
         ResponseEntity<List> responseEntity = this.restTemplate
                 .getForEntity( BASE_URL + PORT + "/passenger/1/flights", List.class );
 
@@ -119,17 +107,6 @@ public class PassengerControllerIT {
 
     @Test
     public void deletePassengerByUserIdWithSuccessStatusTest() {
-        Passenger passenger = PassengerGenerator.generate();
-        User user = UserGenerator.generate();
-        Route route = RouteGenerator.generate();
-
-        passengersRepository.deleteAll();
-        userRepository.deleteAll();
-        routeRepository.deleteAll();
-        userRepository.save( user );
-        routeRepository.save( route );
-        passengersRepository.save( passenger );
-
         System.out.println( passengersRepository.getAllByUserId( 1L ) );
 
         this.restTemplate.delete( BASE_URL + PORT + "/passengers/user/{id}", 1L );
@@ -139,21 +116,16 @@ public class PassengerControllerIT {
 
     @Test
     public void deletePassengerByRouteIdWithSuccessStatusTest() {
+        System.out.println( passengersRepository.getAllByUserId( 1L ) );
+
+        this.restTemplate.delete( BASE_URL + PORT + "/passengers/flight/{id}", 1L );
+        System.out.println( passengersRepository.getAllByRouteId( 1L ) );
+        assertEquals( 0, passengersRepository.getAllByRouteId( 1L ).size() );
+
     }
 
     @Test
     public void updatePassengerWithSuccessStatusTest() {
-        Passenger passenger = PassengerGenerator.generate();
-        User user = UserGenerator.generate();
-        Route route = RouteGenerator.generate();
-
-        passengersRepository.deleteAll();
-        userRepository.deleteAll();
-        routeRepository.deleteAll();
-        userRepository.save( user );
-        routeRepository.save( route );
-        passengersRepository.save( passenger );
-
         PassengerDto passengerDto = PassengerGenerator.generateDto();
         passengerDto.setArrivalPoint( "new" );
 
