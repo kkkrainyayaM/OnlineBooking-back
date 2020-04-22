@@ -20,6 +20,7 @@ import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
@@ -64,8 +65,8 @@ public class PassengerControllerIT {
 
         assertEquals( HttpStatus.OK, responseEntity.getStatusCode() );
         assertEquals( 1L, responseEntity.getBody().getId() );
-        assertEquals( "arrPoint", responseEntity.getBody().getArrivalPoint() );
-        assertEquals( "depPoint", responseEntity.getBody().getDeparturePoint() );
+        assertEquals( "arrivalPoint", responseEntity.getBody().getArrivalPoint() );
+        assertEquals( "departurePoint", responseEntity.getBody().getDeparturePoint() );
         assertEquals( 1L, responseEntity.getBody().getUserId() );
         assertEquals( 1L, responseEntity.getBody().getRouteId() );
 
@@ -75,14 +76,65 @@ public class PassengerControllerIT {
 
     @Test
     public void getPassengersOfRouteWithSuccessStatusTest() {
+        Passenger passenger = PassengerGenerator.generate();
+        User user = UserGenerator.generate();
+        Route route = RouteGenerator.generate();
+
+        passengersRepository.deleteAll();
+        userRepository.deleteAll();
+        routeRepository.deleteAll();
+        userRepository.save( user );
+        routeRepository.save( route );
+        passengersRepository.save( passenger );
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<String> request = new HttpEntity<>( null, headers );
+
+        ResponseEntity<List> responseEntity = this.restTemplate
+                .getForEntity( BASE_URL + PORT + "/flights/1/passengers", List.class );
+
+        assertEquals( HttpStatus.OK, responseEntity.getStatusCode() );
+        assertEquals( 1, responseEntity.getBody().size() );
     }
 
     @Test
     public void getRoutesOfPassengerWithSuccessStatusTest() {
+        Passenger passenger = PassengerGenerator.generate();
+        User user = UserGenerator.generate();
+        Route route = RouteGenerator.generate();
+
+        passengersRepository.deleteAll();
+        userRepository.deleteAll();
+        routeRepository.deleteAll();
+        userRepository.save( user );
+        routeRepository.save( route );
+        passengersRepository.save( passenger );
+
+        ResponseEntity<List> responseEntity = this.restTemplate
+                .getForEntity( BASE_URL + PORT + "/passenger/1/flights", List.class );
+
+        assertEquals( HttpStatus.OK, responseEntity.getStatusCode() );
+        assertEquals( 1, responseEntity.getBody().size() );
     }
 
     @Test
     public void deletePassengerByUserIdWithSuccessStatusTest() {
+        Passenger passenger = PassengerGenerator.generate();
+        User user = UserGenerator.generate();
+        Route route = RouteGenerator.generate();
+
+        passengersRepository.deleteAll();
+        userRepository.deleteAll();
+        routeRepository.deleteAll();
+        userRepository.save( user );
+        routeRepository.save( route );
+        passengersRepository.save( passenger );
+
+        System.out.println( passengersRepository.getAllByUserId( 1L ) );
+
+        this.restTemplate.delete( BASE_URL + PORT + "/passengers/user/{id}", 1L );
+        System.out.println( passengersRepository.getAllByUserId( 1L ) );
+        assertEquals( 0, passengersRepository.getAllByUserId( 1L ).size() );
     }
 
     @Test
@@ -91,6 +143,23 @@ public class PassengerControllerIT {
 
     @Test
     public void updatePassengerWithSuccessStatusTest() {
-    }
+        Passenger passenger = PassengerGenerator.generate();
+        User user = UserGenerator.generate();
+        Route route = RouteGenerator.generate();
 
+        passengersRepository.deleteAll();
+        userRepository.deleteAll();
+        routeRepository.deleteAll();
+        userRepository.save( user );
+        routeRepository.save( route );
+        passengersRepository.save( passenger );
+
+        PassengerDto passengerDto = PassengerGenerator.generateDto();
+        passengerDto.setArrivalPoint( "new" );
+
+        System.out.println( passengersRepository.getAllByUserId( 1L ) );
+        this.restTemplate.put( BASE_URL + PORT + "/passengers", passengerDto );
+
+        assertEquals( passengerDto.getArrivalPoint(), passengersRepository.findById( 1L ).get().getArrivalPoint() );
+    }
 }
