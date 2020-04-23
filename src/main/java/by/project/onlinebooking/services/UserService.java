@@ -1,6 +1,7 @@
 package by.project.onlinebooking.services;
 
 import by.project.onlinebooking.dto.UserDto;
+import by.project.onlinebooking.entities.Role;
 
 import java.util.List;
 
@@ -23,6 +24,14 @@ public interface UserService {
     UserDto getById(long id);
 
     /**
+     * Get a user by phone
+     *
+     * @param phone - user phone
+     * @return user
+     */
+    UserDto getByPhone(String phone);
+
+    /**
      * Get list of all users
      *
      * @return a list of all users
@@ -43,4 +52,13 @@ public interface UserService {
      * @param id - user ID
      */
     void delete(long id);
+
+    /**
+     * LogIn user by phone and password
+     *
+     * @param phone    - phone
+     * @param password - password
+     * @return rote of user
+     */
+    Role logIn(String phone, String password);
 }

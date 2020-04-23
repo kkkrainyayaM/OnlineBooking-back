@@ -1,6 +1,7 @@
 package by.project.onlinebooking.services.impl;
 
 import by.project.onlinebooking.dto.UserDto;
+import by.project.onlinebooking.entities.Role;
 import by.project.onlinebooking.entities.User;
 import by.project.onlinebooking.helpers.PassGenerator;
 import by.project.onlinebooking.helpers.PasswordEncoder;
@@ -35,6 +36,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto getByPhone(String phone) {
+        return userMapper.userToUserDto( userRepository.findByPhone( phone ) );
+    }
+
+    @Override
     public List<UserDto> getAll() {
         return userRepository.findAll().stream()
                 .map( userMapper::userToUserDto )
@@ -53,5 +59,14 @@ public class UserServiceImpl implements UserService {
         passengerService.deleteByUserId( id );
         User user = userRepository.findById( id ).get();
         userRepository.delete( user );
+    }
+
+    @Override
+    public Role logIn(String phone, String password) {
+        User user = userRepository.findByPhoneAndPassword( phone, PasswordEncoder.encode( password ) );
+        if( user != null ) {
+            return user.getRole();
+        }
+        else return Role.UNAUTHORIZED;
     }
 }
