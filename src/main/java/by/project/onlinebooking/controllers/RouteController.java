@@ -46,4 +46,10 @@ public class RouteController {
     public void deleteFlight(@PathVariable(value = "id") long id) {
         routeService.delete( id );
     }
+
+    @ApiOperation(value = "Get a list of flights by search")
+    @GetMapping("/flights/search")
+    public List<RouteDto> getBySearch(@RequestBody RouteDto route) {
+        return routeService.getBySearch( route );
+    }
 }

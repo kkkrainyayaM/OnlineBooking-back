@@ -42,4 +42,12 @@ public interface RouteService {
      * @param id - route ID
      */
     void delete(long id);
+
+    /**
+     * Get a list of results of search
+     *
+     * @param route - fields of search
+     * @return list of routes
+     */
+    List<RouteDto> getBySearch(RouteDto route);
 }

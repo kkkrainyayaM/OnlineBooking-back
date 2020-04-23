@@ -50,4 +50,12 @@ public class RouteServiceImpl implements RouteService {
         Route route = routeRepository.findById( id ).get();
         routeRepository.delete( route );
     }
+
+    @Override
+    public List<RouteDto> getBySearch(RouteDto route) {
+        return routeRepository.findAllByDateAndArrivalPointAndDeparturePoint( route.getDate(),
+                route.getArrivalPoint(), route.getDeparturePoint() ).stream()
+                .map( routeMapper::routeToRouteDto )
+                .collect( Collectors.toList() );
+    }
 }
