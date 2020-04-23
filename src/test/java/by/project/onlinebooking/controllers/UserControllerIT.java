@@ -4,36 +4,42 @@ import by.project.onlinebooking.dto.UserDto;
 import by.project.onlinebooking.entities.User;
 import by.project.onlinebooking.helpers.UserGenerator;
 import by.project.onlinebooking.repositories.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
 
-@ActiveProfiles("test")
+@Slf4j
+@IntegrationTest
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@Transactional
 public class UserControllerIT {
+
+    private static final String BASE_URL = "http://localhost:";
+    private static final int MIN_SIZE = 1;
+    private static final long ID = 1L;
+    private static final long SEC_ID = 2L;
+
+    @LocalServerPort
+    private int port;
 
     @Autowired
     UserRepository userRepository;
 
     private TestRestTemplate restTemplate = new TestRestTemplate();
 
-    private static final int PORT = 8080;
-    private static final String BASE_URL = "http://localhost:";
-    private static final int MIN_SIZE = 1;
-    private static final long ID = 1L;
-    private static final long SEC_ID = 2L;
+
 
     @Test
     public void addUserWithSuccessStatusTest() {
@@ -44,7 +50,7 @@ public class UserControllerIT {
         HttpEntity<UserDto> request = new HttpEntity<>( newUser, headers );
 
         ResponseEntity<UserDto> responseEntity = this.restTemplate
-                .postForEntity( BASE_URL + PORT + "/users", request, UserDto.class );
+                .postForEntity( BASE_URL + port + "/users", request, UserDto.class );
 
 
         assertEquals( HttpStatus.OK, responseEntity.getStatusCode() );
@@ -64,10 +70,24 @@ public class UserControllerIT {
         User user = UserGenerator.generate();
         userRepository.save( user );
 
-        this.restTemplate.delete( BASE_URL + PORT + "/users/{id}", SEC_ID );
+        this.restTemplate.delete( BASE_URL + port + "/users/{id}", SEC_ID );
 
         Optional<User> op = userRepository.findById( SEC_ID );
         assertFalse( op.isPresent() );
+
+    }
+
+    @Test
+    public void deleteUserWithFailedStatusTest() {
+        User user = UserGenerator.generate();
+        userRepository.save( user );
+
+        this.restTemplate.delete( BASE_URL + port + "/users/{id}", 3 );
+
+        Optional<User> op = userRepository.findById( SEC_ID );
+        assertTrue( op.isPresent() );
+
+        userRepository.deleteById( SEC_ID );
 
     }
 
@@ -81,7 +101,7 @@ public class UserControllerIT {
         userDto.setPhone( "new" );
 
         System.out.println( userRepository.findById( SEC_ID ) );
-        this.restTemplate.put( BASE_URL + PORT + "/users", userDto );
+        this.restTemplate.put( BASE_URL + port + "/users", userDto );
 
         assertEquals( userDto.getPhone(), userRepository.findById( SEC_ID ).get().getPhone() );
     }
@@ -89,7 +109,7 @@ public class UserControllerIT {
     @Test
     public void getAllUsersWithSuccessStatusTest() {
         ResponseEntity<List> responseEntity = this.restTemplate
-                .getForEntity( BASE_URL + PORT + "/users", List.class );
+                .getForEntity( BASE_URL + port + "/users", List.class );
 
         assertEquals( HttpStatus.OK, responseEntity.getStatusCode() );
         assertEquals( MIN_SIZE, responseEntity.getBody().size() );
@@ -98,9 +118,17 @@ public class UserControllerIT {
     @Test
     public void getUserWithSuccessStatusTest() {
         ResponseEntity<UserDto> responseEntity = this.restTemplate
-                .getForEntity( BASE_URL + PORT + "/users/{id}", UserDto.class, ID );
+                .getForEntity( BASE_URL + port + "/users/{id}", UserDto.class, ID );
 
         assertEquals( HttpStatus.OK, responseEntity.getStatusCode() );
         assertEquals( ID, responseEntity.getBody().getId() );
+    }
+
+    @Test
+    public void getUserWithFailedStatusTest() {
+        ResponseEntity<UserDto> responseEntity = this.restTemplate
+                .getForEntity( BASE_URL + port + "/users/{id}", UserDto.class, 2 );
+
+        assertEquals( HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode() );
     }
 }

@@ -133,4 +133,5 @@ public class PassengerControllerIT {
         assertEquals( passengerDto.getArrivalPoint(), passengersRepository.findById( SEC_ID ).get().getArrivalPoint() );
         passengersRepository.deleteById( SEC_ID );
     }
+
 }
