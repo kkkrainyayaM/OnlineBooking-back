@@ -9,11 +9,12 @@ import org.mapstruct.factory.Mappers;
 
 public class PassengerMapperTest {
 
+    private static final long ID = 1L;
     private final PassengerMapper passengerMapper = Mappers.getMapper( PassengerMapper.class );
 
     @Test
     public void passengerToTdoMapping() {
-        Passenger passenger = PassengerGenerator.generate();
+        Passenger passenger = PassengerGenerator.generate( ID, ID );
 
         PassengerDto passengerDto = passengerMapper.passengerToPassengerDto( passenger );
 
@@ -25,7 +26,7 @@ public class PassengerMapperTest {
 
     @Test
     public void tdoToPassengerMapping() {
-        PassengerDto passengerDto = PassengerGenerator.generateDto();
+        PassengerDto passengerDto = PassengerGenerator.generateDto( ID, ID );
 
         Passenger passenger = passengerMapper.passengerDtoToPassenger( passengerDto );
 

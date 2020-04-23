@@ -33,10 +33,12 @@ public class RouteControllerIT {
     private static final String BASE_URL = "http://localhost:";
     private static final int MIN_SIZE = 1;
     private static final long ID = 1L;
+    private static final long SEC_ID = 2L;
 
     @Test
     public void addRouteWithSuccessStatusTest() {
         RouteDto newRoute = RouteGenerator.generateDto();
+        newRoute.setId( SEC_ID );
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType( MediaType.APPLICATION_JSON );
@@ -56,8 +58,10 @@ public class RouteControllerIT {
         assertEquals( newRoute.getDepartureTime(), route.getDepartureTime() );
         assertEquals( newRoute.getDeparturePoint(), route.getDeparturePoint() );
 
-        Optional<Route> op = routeRepository.findById( responseEntity.getBody().getId() );
+        Optional<Route> op = routeRepository.findById( SEC_ID );
         assertTrue( op.isPresent() );
+
+        routeRepository.deleteById( SEC_ID );
     }
 
     @Test
@@ -66,9 +70,9 @@ public class RouteControllerIT {
         routeRepository.save( route );
         System.out.println( routeRepository.findAll() );
 
-        this.restTemplate.delete( BASE_URL + PORT + "/flights/{id}", ID );
+        this.restTemplate.delete( BASE_URL + PORT + "/flights/{id}", SEC_ID );
 
-        Optional<Route> op = routeRepository.findById( ID );
+        Optional<Route> op = routeRepository.findById( SEC_ID );
         assertFalse( op.isPresent() );
 
     }
@@ -76,23 +80,21 @@ public class RouteControllerIT {
     @Test
     public void updateRouteWithSuccessStatusTest() {
         Route route = RouteGenerator.generate();
-        routeRepository.deleteAll();
         routeRepository.save( route );
 
         RouteDto routeDto = RouteGenerator.generateDto();
+        routeDto.setId( SEC_ID );
         routeDto.setArrivalPoint( "new" );
 
-        System.out.println( routeRepository.findById( ID ) );
         this.restTemplate.put( BASE_URL + PORT + "/flights", routeDto );
 
-        assertEquals( routeDto.getArrivalPoint(), routeRepository.findById( ID ).get().getArrivalPoint() );
+        assertEquals( routeDto.getArrivalPoint(), routeRepository.findById( SEC_ID ).get().getArrivalPoint() );
+
+        routeRepository.deleteById( SEC_ID );
     }
 
     @Test
     public void getAllRoutesWithSuccessStatusTest() {
-        Route route = RouteGenerator.generate();
-        routeRepository.save( route );
-
         ResponseEntity<List> responseEntity = this.restTemplate
                 .getForEntity( BASE_URL + PORT + "/flights", List.class );
 
@@ -102,9 +104,6 @@ public class RouteControllerIT {
 
     @Test
     public void getRouteWithSuccessStatusTest() {
-        Route route = RouteGenerator.generate();
-        routeRepository.save( route );
-
         ResponseEntity<RouteDto> responseEntity = this.restTemplate
                 .getForEntity( BASE_URL + PORT + "/flights/{id}", RouteDto.class, ID );
 

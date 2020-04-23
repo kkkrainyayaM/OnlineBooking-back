@@ -5,23 +5,23 @@ import by.project.onlinebooking.entities.Passenger;
 
 public class PassengerGenerator {
 
-    public static Passenger generate() {
+    public static Passenger generate(long userId, long routeId) {
         Passenger passenger = new Passenger();
         passenger.setId( 1 );
         passenger.setDeparturePoint( "departurePoint" );
         passenger.setArrivalPoint( "arrivalPoint" );
-        passenger.setRouteId( 1 );
-        passenger.setUserId( 1 );
+        passenger.setRouteId( routeId );
+        passenger.setUserId( userId );
         return passenger;
     }
 
-    public static PassengerDto generateDto() {
+    public static PassengerDto generateDto(long userId, long routeId) {
         PassengerDto passenger = new PassengerDto();
         passenger.setId( 1 );
         passenger.setDeparturePoint( "departurePoint" );
         passenger.setArrivalPoint( "arrivalPoint" );
-        passenger.setRouteId( 1 );
-        passenger.setUserId( 1 );
+        passenger.setRouteId( routeId );
+        passenger.setUserId( userId );
         return passenger;
     }
 }

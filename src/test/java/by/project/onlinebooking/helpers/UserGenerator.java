@@ -8,7 +8,6 @@ public class UserGenerator {
 
     public static User generate() {
         User user = new User();
-        user.setId( 1 );
         user.setFirstName( "firstName" );
         user.setLastName( "lastName" );
         user.setPassword( "password" );
@@ -19,7 +18,6 @@ public class UserGenerator {
 
     public static UserDto generateDto() {
         UserDto user = new UserDto();
-        user.setId( 1 );
         user.setFirstName( "firstName" );
         user.setLastName( "lastName" );
         user.setPhone( "phone" );

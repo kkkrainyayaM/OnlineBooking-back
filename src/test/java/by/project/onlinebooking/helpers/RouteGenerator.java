@@ -10,7 +10,6 @@ public class RouteGenerator {
     public static Route generate() {
         Date dateNow = new Date();
         Route route = new Route();
-        route.setId( 1 );
         route.setDate( dateNow );
         route.setArrivalPoint( "arrivalPoint" );
         route.setDeparturePoint( "departurePoint" );
@@ -22,7 +21,6 @@ public class RouteGenerator {
     public static RouteDto generateDto() {
         Date dateNow = new Date();
         RouteDto route = new RouteDto();
-        route.setId( 1 );
         route.setDate( dateNow );
         route.setArrivalPoint( "arrivalPoint" );
         route.setDeparturePoint( "departurePoint" );

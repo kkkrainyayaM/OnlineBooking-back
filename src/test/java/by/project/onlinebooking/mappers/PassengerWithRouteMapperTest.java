@@ -11,11 +11,12 @@ import org.mapstruct.factory.Mappers;
 
 public class PassengerWithRouteMapperTest {
 
+    private static final long ID = 1L;
     private final PassengerWithRouteMapper passengerMapper = Mappers.getMapper( PassengerWithRouteMapper.class );
 
     @Test
     public void passengerToTdoMapping() {
-        Passenger passenger = PassengerGenerator.generate();
+        Passenger passenger = PassengerGenerator.generate( ID, ID );
         Route route = RouteGenerator.generate();
 
         PassengerWithRouteDto passengerDto = passengerMapper.passengerToPassengerWithRouteDto( passenger, route );

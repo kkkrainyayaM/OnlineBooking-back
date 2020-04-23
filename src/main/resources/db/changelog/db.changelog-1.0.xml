@@ -84,4 +84,30 @@
 
 
     </changeSet>
+
+    <changeSet id="for-tests" author="mari" dbms="h2">
+        <insert tableName="user">
+            <column name="id" value="1"/>
+            <column name="first_name" value="first_name"/>
+            <column name="last_name" value="last_name"/>
+            <column name="phone" value="375299545280"/>
+            <column name="password" value="password"/>
+            <column name="role" value="USER"/>
+        </insert>
+        <insert tableName="route">
+            <column name="id" value="1"/>
+            <column name="departure_point" value="departure_point"/>
+            <column name="arrival_point" value="arrival_point"/>
+            <column name="departure_time" value="11:00"/>
+            <column name="arrival_time" value="11:00"/>
+            <column name="date" value="2000-11-11"/>
+        </insert>
+        <insert tableName="passenger">
+            <column name="id" value="1"/>
+            <column name="route_id" value="1"/>
+            <column name="user_id" value="1"/>
+            <column name="arrival_point" value="arrival_point"/>
+            <column name="departure_point" value="departure_point"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

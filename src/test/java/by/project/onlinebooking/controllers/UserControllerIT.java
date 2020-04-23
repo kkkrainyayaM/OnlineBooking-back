@@ -33,11 +33,12 @@ public class UserControllerIT {
     private static final String BASE_URL = "http://localhost:";
     private static final int MIN_SIZE = 1;
     private static final long ID = 1L;
+    private static final long SEC_ID = 2L;
 
     @Test
     public void addUserWithSuccessStatusTest() {
         UserDto newUser = UserGenerator.generateDto();
-
+        newUser.setId( SEC_ID );
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType( MediaType.APPLICATION_JSON );
         HttpEntity<UserDto> request = new HttpEntity<>( newUser, headers );
@@ -62,11 +63,10 @@ public class UserControllerIT {
     public void deleteUserWithSuccessStatusTest() {
         User user = UserGenerator.generate();
         userRepository.save( user );
-        System.out.println( userRepository.findAll() );
 
-        this.restTemplate.delete( BASE_URL + PORT + "/users/{id}", ID );
+        this.restTemplate.delete( BASE_URL + PORT + "/users/{id}", SEC_ID );
 
-        Optional<User> op = userRepository.findById( ID );
+        Optional<User> op = userRepository.findById( SEC_ID );
         assertFalse( op.isPresent() );
 
     }
@@ -77,19 +77,17 @@ public class UserControllerIT {
         userRepository.save( user );
 
         UserDto userDto = UserGenerator.generateDto();
+        userDto.setId( SEC_ID );
         userDto.setPhone( "new" );
 
-        System.out.println( userRepository.findById( ID ) );
+        System.out.println( userRepository.findById( SEC_ID ) );
         this.restTemplate.put( BASE_URL + PORT + "/users", userDto );
 
-        assertEquals( userDto.getPhone(), userRepository.findById( ID ).get().getPhone() );
+        assertEquals( userDto.getPhone(), userRepository.findById( SEC_ID ).get().getPhone() );
     }
 
     @Test
     public void getAllUsersWithSuccessStatusTest() {
-        User user = UserGenerator.generate();
-        userRepository.save( user );
-
         ResponseEntity<List> responseEntity = this.restTemplate
                 .getForEntity( BASE_URL + PORT + "/users", List.class );
 
@@ -99,9 +97,6 @@ public class UserControllerIT {
 
     @Test
     public void getUserWithSuccessStatusTest() {
-        User user = UserGenerator.generate();
-        userRepository.save( user );
-
         ResponseEntity<UserDto> responseEntity = this.restTemplate
                 .getForEntity( BASE_URL + PORT + "/users/{id}", UserDto.class, ID );
 
