@@ -2,6 +2,8 @@ package by.project.onlinebooking.services.impl;
 
 import by.project.onlinebooking.dto.UserDto;
 import by.project.onlinebooking.entities.User;
+import by.project.onlinebooking.helpers.PassGenerator;
+import by.project.onlinebooking.helpers.PasswordEncoder;
 import by.project.onlinebooking.mappers.UserMapper;
 import by.project.onlinebooking.repositories.UserRepository;
 import by.project.onlinebooking.services.PassengerService;
@@ -23,6 +25,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto add(UserDto newUser) {
         User user = userMapper.userDtoToUser( newUser );
+        user.setPassword( PasswordEncoder.encode( PassGenerator.generateRandomPassword() ) );
         return userMapper.userToUserDto( userRepository.save( user ) );
     }
 
