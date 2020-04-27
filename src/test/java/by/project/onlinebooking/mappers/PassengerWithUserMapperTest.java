@@ -9,26 +9,26 @@ import org.mapstruct.factory.Mappers;
 
 public class PassengerWithUserMapperTest {
 
-    private final PassengerMapper passengerMapper = Mappers.getMapper( PassengerMapper.class );
+    private final PassengerMapper passengerMapper = Mappers.getMapper(PassengerMapper.class);
 
     @Test
-    public void passengerWithUserToTdo() {
+    public void passengerWithUserToDto() {
         Passenger passenger = new Passenger();
-        passenger.setDeparturePoint( "departurePoint" );
-        passenger.setArrivalPoint( "arrivalPoint" );
-        passenger.setRouteId( 1 );
-        passenger.setUserId( 1 );
+        passenger.setDeparturePoint("departurePoint");
+        passenger.setArrivalPoint("arrivalPoint");
+        passenger.setRouteId(1);
+        passenger.setUserId(1);
 
         User user = new User();
-        user.setFirstName( "firstName" );
-        user.setPhone( "phone" );
+        user.setFirstName("firstName");
+        user.setPhone("phone");
 
-        PassengerDto passengerDto = passengerMapper.passengerToPassengerWithUserDto( passenger, user );
+        PassengerDto passengerDto = passengerMapper.passengerToPassengerWithUserDto(passenger, user);
 
-        Assert.assertEquals( passenger.getUserId(), passengerDto.getRouteId() );
-        Assert.assertEquals( passenger.getArrivalPoint(), passengerDto.getArrivalPoint() );
-        Assert.assertEquals( passenger.getDeparturePoint(), passengerDto.getDeparturePoint() );
-        Assert.assertEquals( user.getFirstName(), passengerDto.getFirstName() );
-        Assert.assertEquals( user.getPhone(), passengerDto.getPhone() );
+        Assert.assertEquals(passenger.getUserId(), passengerDto.getRouteId());
+        Assert.assertEquals(passenger.getArrivalPoint(), passengerDto.getArrivalPoint());
+        Assert.assertEquals(passenger.getDeparturePoint(), passengerDto.getDeparturePoint());
+        Assert.assertEquals(user.getFirstName(), passengerDto.getFirstName());
+        Assert.assertEquals(user.getPhone(), passengerDto.getPhone());
     }
 }

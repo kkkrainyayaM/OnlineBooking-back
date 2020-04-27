@@ -11,26 +11,26 @@ import java.util.Date;
 
 public class PassengerWithRouteMapperTest {
 
-    private final PassengerMapper passengerMapper = Mappers.getMapper( PassengerMapper.class );
+    private final PassengerMapper passengerMapper = Mappers.getMapper(PassengerMapper.class);
 
     @Test
-    public void passengerToTdoMapping() {
+    public void passengerToDtoMapping() {
         Passenger passenger = new Passenger();
-        passenger.setDeparturePoint( "departurePoint" );
-        passenger.setArrivalPoint( "arrivalPoint" );
-        passenger.setRouteId( 1 );
-        passenger.setUserId( 1 );
+        passenger.setDeparturePoint("departurePoint");
+        passenger.setArrivalPoint("arrivalPoint");
+        passenger.setRouteId(1);
+        passenger.setUserId(1);
 
         Route route = new Route();
-        route.setDate( new Date() );
-        route.setDepartureTime( "11:00" );
+        route.setDate(new Date());
+        route.setDepartureTime("11:00");
 
-        PassengerDto passengerDto = passengerMapper.passengerToPassengerWithRouteDto( passenger, route );
+        PassengerDto passengerDto = passengerMapper.passengerToPassengerWithRouteDto(passenger, route);
 
-        Assert.assertEquals( passenger.getUserId(), passengerDto.getUserId() );
-        Assert.assertEquals( passenger.getArrivalPoint(), passengerDto.getArrivalPoint() );
-        Assert.assertEquals( passenger.getDeparturePoint(), passengerDto.getDeparturePoint() );
-        Assert.assertEquals( route.getDate(), passengerDto.getDate() );
-        Assert.assertEquals( route.getDepartureTime(), passengerDto.getDepartureTime() );
+        Assert.assertEquals(passenger.getUserId(), passengerDto.getUserId());
+        Assert.assertEquals(passenger.getArrivalPoint(), passengerDto.getArrivalPoint());
+        Assert.assertEquals(passenger.getDeparturePoint(), passengerDto.getDeparturePoint());
+        Assert.assertEquals(route.getDate(), passengerDto.getDate());
+        Assert.assertEquals(route.getDepartureTime(), passengerDto.getDepartureTime());
     }
 }

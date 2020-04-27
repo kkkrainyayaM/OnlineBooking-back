@@ -2,7 +2,14 @@ package by.project.onlinebooking.entities;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
 @Entity
@@ -11,19 +18,19 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column( nullable = false)
+    @Column(nullable = false)
     private long id;
 
-    @Column( nullable = false)
+    @Column(nullable = false)
     private String firstName;
 
-    @Column( nullable = false)
+    @Column(nullable = false)
     private String lastName;
 
-    @Column( nullable = false)
+    @Column(nullable = false)
     private String password;
 
-    @Column( nullable = false)
+    @Column(nullable = false)
     private String phone;
 
     @Enumerated(EnumType.STRING)

@@ -6,7 +6,16 @@ import by.project.onlinebooking.services.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -29,36 +38,36 @@ public class UserController {
     @ApiOperation(value = "Get a user by phone")
     @GetMapping("/users")
     public UserDto getUser(@RequestParam String phone) {
-        return userService.getByPhone( phone );
+        return userService.getByPhone(phone);
     }
 
     @ApiOperation(value = "Get a user by ID")
     @GetMapping("/users/{id}")
     public UserDto getUser(@PathVariable long id) {
-        return userService.getById( id );
+        return userService.getById(id);
     }
 
     @ApiOperation(value = "Add a user")
     @PostMapping("/users")
     public UserDto addUser(@Valid @RequestBody UserDto user) {
-        return userService.add( user );
+        return userService.add(user);
     }
 
     @ApiOperation(value = "LogIn user")
     @PostMapping("/users")
     public UserDto logIn(@Valid @RequestBody LoginDto loginDto) {
-        return userService.logIn( loginDto );
+        return userService.logIn(loginDto);
     }
 
     @ApiOperation(value = "Update a user")
     @PutMapping("/users")
     public UserDto updateUser(@Valid @RequestBody UserDto user) {
-        return userService.update( user );
+        return userService.update(user);
     }
 
     @ApiOperation(value = "Delete a user")
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable(value = "id") long id) {
-        userService.delete( id );
+        userService.delete(id);
     }
 }

@@ -13,13 +13,13 @@ import javax.persistence.Table;
 public class Passenger {
 
     @Id
-    @Column( nullable = false)
+    @Column(nullable = false)
     private long id;
 
-    @Column( nullable = false)
+    @Column(nullable = false)
     private String departurePoint;
 
-    @Column( nullable = false)
+    @Column(nullable = false)
     private String arrivalPoint;
 
     @Column(nullable = false)

@@ -26,55 +26,55 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public PassengerDto add(PassengerDto newPassenger) {
-        Passenger passenger = passengerMapper.passengerDtoToPassenger( newPassenger );
-        log.info( "Passenger from passengerMapper: {}", passenger );
-        Passenger passengerWithId = passengerRepository.save( passenger );
-        log.info( "Saved passenger: {}", passengerWithId );
-        return passengerMapper.passengerToPassengerDto( passengerWithId );
+        Passenger passenger = passengerMapper.passengerDtoToPassenger(newPassenger);
+        log.info("Passenger from passengerMapper: {}", passenger);
+        Passenger passengerWithId = passengerRepository.save(passenger);
+        log.info("Saved passenger: {}", passengerWithId);
+        return passengerMapper.passengerToPassengerDto(passengerWithId);
     }
 
     @Override
     public void deleteByUserId(long id) {
-        passengerRepository.deleteByUserId( id );
-        log.info( "Deleted passenger with userId={}", id );
+        passengerRepository.deleteByUserId(id);
+        log.info("Deleted passenger with userId={}", id);
     }
 
     @Override
     public void deleteByRouteId(long id) {
-        passengerRepository.deleteByRouteId( id );
-        log.info( "Deleted passenger with routeId={}", id );
+        passengerRepository.deleteByRouteId(id);
+        log.info("Deleted passenger with routeId={}", id);
     }
 
     @Override
     public List<PassengerDto> getAllByUserId(long id) {
-        log.info( "UserId = {}", id );
-        List<Passenger> list = passengerRepository.getAllByUserId( id );
-        log.info( "List of passengers by userId: {}", list );
+        log.info("UserId = {}", id);
+        List<Passenger> list = passengerRepository.getAllByUserId(id);
+        log.info("List of passengers by userId: {}", list);
         List<PassengerDto> listDto = list.stream()
-                .map( passenger -> passengerMapper.passengerToPassengerWithRouteDto(
-                        passenger, routeRepository.findById( passenger.getRouteId() ).get() ) )
-                .collect( Collectors.toList() );
-        log.info( "List of passengers Dto : {}", listDto );
+                .map(passenger -> passengerMapper.passengerToPassengerWithRouteDto(
+                        passenger, routeRepository.findById(passenger.getRouteId()).get()))
+                .collect(Collectors.toList());
+        log.info("List of passengers Dto : {}", listDto);
         return listDto;
     }
 
     @Override
     public List<PassengerDto> getAllByRouteId(long id) {
-        log.info( "RouteId = {}", id );
-        List<Passenger> list = passengerRepository.getAllByRouteId( id );
-        log.info( "List of passengers by userId: {}", list );
+        log.info("RouteId = {}", id);
+        List<Passenger> list = passengerRepository.getAllByRouteId(id);
+        log.info("List of passengers by userId: {}", list);
         List<PassengerDto> listDto = list.stream()
-                .map( passenger -> passengerMapper.passengerToPassengerWithUserDto(
-                        passenger, userRepository.findById( passenger.getUserId() ).get() ) )
-                .collect( Collectors.toList() );
-        log.info( "List of passengers by routeId: {}", listDto );
+                .map(passenger -> passengerMapper.passengerToPassengerWithUserDto(
+                        passenger, userRepository.findById(passenger.getUserId()).get()))
+                .collect(Collectors.toList());
+        log.info("List of passengers by routeId: {}", listDto);
         return listDto;
     }
 
     @Override
     public PassengerDto update(PassengerDto passenger) {
-        passengerRepository.save( passengerMapper.passengerDtoToPassenger( passenger ) );
-        log.info( "Updated passenger: {}", passenger );
+        passengerRepository.save(passengerMapper.passengerDtoToPassenger(passenger));
+        log.info("Updated passenger: {}", passenger);
         return passenger;
     }
 }
