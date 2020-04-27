@@ -27,20 +27,20 @@ public class PassengerController {
     private final PassengerService passengerService;
 
     @ApiOperation(value = "Get list of passengers of route")
-    @GetMapping("/flights/{id}/passengers")
+    @GetMapping("/routes/{id}/passengers")
     public List<PassengerDto> getPassengersOfRoute(@PathVariable long id) {
         return passengerService.getAllByRouteId(id);
     }
 
     @ApiOperation(value = "Get list of routes of passenger")
-    @GetMapping("/passenger/{id}/flights")
+    @GetMapping("/passenger/{id}/routes")
     public List<PassengerDto> getRoutesOfPassenger(@PathVariable long id) {
         return passengerService.getAllByRouteId(id);
     }
 
     @ApiOperation(value = "Add a passenger")
     @PostMapping("/passengers")
-    public PassengerDto newPassenger(@Valid @RequestBody PassengerDto passenger) {
+    public PassengerDto addPassenger(@Valid @RequestBody PassengerDto passenger) {
         return passengerService.add(passenger);
     }
 
@@ -50,8 +50,8 @@ public class PassengerController {
         passengerService.deleteByUserId(id);
     }
 
-    @ApiOperation(value = "Delete a passenger by flight id")
-    @DeleteMapping("/passengers/flight")
+    @ApiOperation(value = "Delete a passenger by route id")
+    @DeleteMapping("/passengers/route")
     public void deletePassengerByRouteId(@RequestParam(value = "id") long id) {
         passengerService.deleteByRouteId(id);
     }

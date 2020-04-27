@@ -3,7 +3,6 @@ package by.project.onlinebooking.services.impl;
 import by.project.onlinebooking.dto.LoginDto;
 import by.project.onlinebooking.dto.UserDto;
 import by.project.onlinebooking.entities.User;
-import by.project.onlinebooking.helpers.PassGenerator;
 import by.project.onlinebooking.helpers.PasswordEncoder;
 import by.project.onlinebooking.mappers.UserMapper;
 import by.project.onlinebooking.repositories.UserRepository;
@@ -11,6 +10,7 @@ import by.project.onlinebooking.services.PassengerService;
 import by.project.onlinebooking.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,45 +26,42 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public UserDto add(UserDto newUser) {
-        User user = userMapper.userDtoToUser(newUser);
-        log.info("User from userMapper: {}", user);
-        user.setPassword(PasswordEncoder.encode(PassGenerator.generateRandomPassword()));
-        log.info("Generated password for user");
-        User userWithId = userRepository.save(user);
-        log.info("Saved user : {}", user);
-        return userMapper.userToUserDto(userWithId);
+    public UserDto add(UserDto userDto) {
+        log.info("Save user: {}", userDto);
+        val user = userMapper.userDtoToUser(userDto);
+        val savedUser = userRepository.save(user);
+        return userMapper.userToUserDto(savedUser);
     }
 
     @Override
     public UserDto getById(long id) {
         log.info("UserId = {}", id);
         User user = userRepository.findById(id).get();
-        log.info("User by id :{}", user);
+        log.info("Get user by id :{}", user);
         return userMapper.userToUserDto(user);
     }
 
     @Override
     public UserDto getByPhone(String phone) {
-        log.info("User phone = {}", phone);
+        log.info("User's phone = {}", phone);
         User user = userRepository.findByPhone(phone);
-        log.info("User by phone :{}", user);
+        log.info("Get user by phone :{}", user);
         return userMapper.userToUserDto(user);
     }
 
     @Override
     public List<UserDto> getAll() {
-        List<UserDto> list = userRepository.findAll().stream()
+        val list = userRepository.findAll().stream()
                 .map(userMapper::userToUserDto)
                 .collect(Collectors.toList());
-        log.info("List of users: {}", list);
+        log.info("Get list of users: {}", list);
         return list;
     }
 
     @Override
     public UserDto update(UserDto newUser) {
         User user = userRepository.save(userMapper.userDtoToUser(newUser));
-        log.info("Updated user: {}", user);
+        log.info("Update user: {}", user);
         return userMapper.userToUserDto(user);
     }
 
@@ -80,7 +77,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto logIn(LoginDto loginDto) {
-        log.info("LoginDto: {}", loginDto);
+        log.info("Login: {}", loginDto);
         return userMapper.userToUserDto(userRepository.findByPhoneAndPassword(loginDto.getPhone(),
                 PasswordEncoder.encode(loginDto.getPassword())));
     }

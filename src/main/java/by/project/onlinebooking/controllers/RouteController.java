@@ -52,7 +52,7 @@ public class RouteController {
 
     @ApiOperation(value = "Delete a route")
     @DeleteMapping("/routes/{id}")
-    public void deleteFlight(@PathVariable(value = "id") long id) {
+    public void deleteRoute(@PathVariable(value = "id") long id) {
         routeService.delete(id);
     }
 
