@@ -12,10 +12,4 @@ public interface UserMapper {
 
     @Mapping(target = "role", constant = "USER")
     User userDtoToUser(UserDto userDto);
-
-    @Mapping(source = "user.id", target = "id")
-    @Mapping(source = "userDto.firstName", target = "firstName")
-    @Mapping(source = "userDto.lastName", target = "lastName")
-    @Mapping(source = "userDto.phone", target = "phone")
-    User update(User user, UserDto userDto);
 }

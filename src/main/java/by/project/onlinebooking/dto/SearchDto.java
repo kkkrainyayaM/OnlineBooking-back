@@ -6,19 +6,14 @@ import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Data
-public class RouteDto {
-    private long id;
+public class SearchDto {
     private Date date;
-
-    @NotEmpty
-    private String departureTime;
-
-    @NotEmpty
-    private String arrivalTime;
 
     @NotEmpty
     private String departurePoint;
 
     @NotEmpty
     private String arrivalPoint;
+
+    private int numberOfPlaces = 1;
 }

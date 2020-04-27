@@ -1,7 +1,7 @@
 package by.project.onlinebooking.controllers;
 
+import by.project.onlinebooking.dto.LoginDto;
 import by.project.onlinebooking.dto.UserDto;
-import by.project.onlinebooking.entities.Role;
 import by.project.onlinebooking.services.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
@@ -28,8 +27,8 @@ public class UserController {
     }
 
     @ApiOperation(value = "Get a user by phone")
-    @GetMapping("/users/{phone}")
-    public UserDto getUser(@PathVariable String phone) {
+    @GetMapping("/users")
+    public UserDto getUser(@RequestParam String phone) {
         return userService.getByPhone( phone );
     }
 
@@ -46,9 +45,9 @@ public class UserController {
     }
 
     @ApiOperation(value = "LogIn user")
-    @PostMapping("/users/{phone}")
-    public Role logIn(@Valid @RequestBody String password, @PathVariable String phone) {
-        return userService.logIn( phone, password );
+    @PostMapping("/users")
+    public UserDto logIn(@Valid @RequestBody LoginDto loginDto) {
+        return userService.logIn( loginDto );
     }
 
     @ApiOperation(value = "Update a user")

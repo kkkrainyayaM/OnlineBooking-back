@@ -1,6 +1,7 @@
 package by.project.onlinebooking.services;
 
 import by.project.onlinebooking.dto.RouteDto;
+import by.project.onlinebooking.dto.SearchDto;
 
 import java.util.List;
 
@@ -46,8 +47,8 @@ public interface RouteService {
     /**
      * Get a list of results of search
      *
-     * @param route - fields of search
+     * @param search - search
      * @return list of routes
      */
-    List<RouteDto> getBySearch(RouteDto route);
+    List<RouteDto> getBySearch(SearchDto search);
 }

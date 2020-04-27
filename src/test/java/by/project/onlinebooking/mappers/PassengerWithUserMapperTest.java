@@ -1,6 +1,6 @@
 package by.project.onlinebooking.mappers;
 
-import by.project.onlinebooking.dto.PassengerWithUserDto;
+import by.project.onlinebooking.dto.PassengerDto;
 import by.project.onlinebooking.entities.Passenger;
 import by.project.onlinebooking.entities.User;
 import org.junit.Assert;
@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 
 public class PassengerWithUserMapperTest {
 
-    private final PassengerWithUserMapper passengerMapper = Mappers.getMapper( PassengerWithUserMapper.class );
+    private final PassengerMapper passengerMapper = Mappers.getMapper( PassengerMapper.class );
 
     @Test
     public void passengerWithUserToTdo() {
@@ -23,7 +23,7 @@ public class PassengerWithUserMapperTest {
         user.setFirstName( "firstName" );
         user.setPhone( "phone" );
 
-        PassengerWithUserDto passengerDto = passengerMapper.passengerToPassengerWithUserDto( passenger, user );
+        PassengerDto passengerDto = passengerMapper.passengerToPassengerWithUserDto( passenger, user );
 
         Assert.assertEquals( passenger.getUserId(), passengerDto.getRouteId() );
         Assert.assertEquals( passenger.getArrivalPoint(), passengerDto.getArrivalPoint() );

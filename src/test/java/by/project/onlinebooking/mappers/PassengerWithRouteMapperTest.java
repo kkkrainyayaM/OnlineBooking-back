@@ -1,6 +1,6 @@
 package by.project.onlinebooking.mappers;
 
-import by.project.onlinebooking.dto.PassengerWithRouteDto;
+import by.project.onlinebooking.dto.PassengerDto;
 import by.project.onlinebooking.entities.Passenger;
 import by.project.onlinebooking.entities.Route;
 import org.junit.Assert;
@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class PassengerWithRouteMapperTest {
 
-    private final PassengerWithRouteMapper passengerMapper = Mappers.getMapper( PassengerWithRouteMapper.class );
+    private final PassengerMapper passengerMapper = Mappers.getMapper( PassengerMapper.class );
 
     @Test
     public void passengerToTdoMapping() {
@@ -25,7 +25,7 @@ public class PassengerWithRouteMapperTest {
         route.setDate( new Date() );
         route.setDepartureTime( "11:00" );
 
-        PassengerWithRouteDto passengerDto = passengerMapper.passengerToPassengerWithRouteDto( passenger, route );
+        PassengerDto passengerDto = passengerMapper.passengerToPassengerWithRouteDto( passenger, route );
 
         Assert.assertEquals( passenger.getUserId(), passengerDto.getUserId() );
         Assert.assertEquals( passenger.getArrivalPoint(), passengerDto.getArrivalPoint() );

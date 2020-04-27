@@ -1,7 +1,7 @@
 package by.project.onlinebooking.services;
 
+import by.project.onlinebooking.dto.LoginDto;
 import by.project.onlinebooking.dto.UserDto;
-import by.project.onlinebooking.entities.Role;
 
 import java.util.List;
 
@@ -56,9 +56,8 @@ public interface UserService {
     /**
      * LogIn user by phone and password
      *
-     * @param phone    - phone
-     * @param password - password
-     * @return rote of user
+     * @param loginDto - phone and password
+     * @return user
      */
-    Role logIn(String phone, String password);
+    UserDto logIn(LoginDto loginDto);
 }
