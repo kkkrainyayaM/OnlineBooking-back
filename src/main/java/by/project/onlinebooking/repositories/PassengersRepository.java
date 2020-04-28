@@ -9,9 +9,9 @@ import java.util.List;
 @Repository("PassengersRepository")
 public interface PassengersRepository extends JpaRepository<Passenger, Long> {
 
-    void deleteByUserId(long id);
+    void deleteAllByUserId(long id);
 
-    void deleteByRouteId(long id);
+    void deleteAllByRouteId(long id);
 
     List<Passenger> getAllByRouteId(long id);
 

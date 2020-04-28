@@ -3,27 +3,22 @@ package by.project.onlinebooking.mappers;
 import by.project.onlinebooking.dto.PassengerDto;
 import by.project.onlinebooking.entities.Passenger;
 import by.project.onlinebooking.entities.Route;
+import by.project.onlinebooking.helpers.PassengerGenerator;
+import by.project.onlinebooking.helpers.RouteGenerator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
 
-import java.util.Date;
-
 public class PassengerWithRouteMapperTest {
 
     private final PassengerMapper passengerMapper = Mappers.getMapper(PassengerMapper.class);
+    private static final long ID = 1L;
+    private final PassengerWithRouteMapper passengerMapper = Mappers.getMapper( PassengerWithRouteMapper.class );
 
     @Test
-    public void passengerToDtoMapping() {
-        Passenger passenger = new Passenger();
-        passenger.setDeparturePoint("departurePoint");
-        passenger.setArrivalPoint("arrivalPoint");
-        passenger.setRouteId(1);
-        passenger.setUserId(1);
-
-        Route route = new Route();
-        route.setDate(new Date());
-        route.setDepartureTime("11:00");
+    public void passengerToTdoMapping() {
+        Passenger passenger = PassengerGenerator.generate( ID, ID );
+        Route route = RouteGenerator.generate();
 
         PassengerDto passengerDto = passengerMapper.passengerToPassengerWithRouteDto(passenger, route);
 

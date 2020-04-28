@@ -1,8 +1,8 @@
 package by.project.onlinebooking.mappers;
 
 import by.project.onlinebooking.dto.UserDto;
-import by.project.onlinebooking.entities.Role;
 import by.project.onlinebooking.entities.User;
+import by.project.onlinebooking.helpers.UserGenerator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
@@ -13,14 +13,8 @@ public class UserMapperTest {
     private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
     @Test
-    public void userToDtoMapping() {
-        User user = new User();
-        user.setId(1);
-        user.setFirstName("firstName");
-        user.setLastName("lastName");
-        user.setPassword("password");
-        user.setPhone("phone");
-        user.setRole(Role.USER);
+    public void userToTdoMapping() {
+        User user = UserGenerator.generate();
 
         UserDto userDto = userMapper.userToUserDto(user);
 
@@ -31,12 +25,8 @@ public class UserMapperTest {
     }
 
     @Test
-    public void dtoToUserMapping() {
-        UserDto userDto = new UserDto();
-        userDto.setId(1);
-        userDto.setFirstName("firstName");
-        userDto.setLastName("lastName");
-        userDto.setPhone("phone");
+    public void tdoToUserMapping() {
+        UserDto userDto = UserGenerator.generateDto();
 
         User user = userMapper.userDtoToUser(userDto);
 

@@ -3,25 +3,22 @@ package by.project.onlinebooking.mappers;
 import by.project.onlinebooking.dto.PassengerDto;
 import by.project.onlinebooking.entities.Passenger;
 import by.project.onlinebooking.entities.User;
+import by.project.onlinebooking.helpers.PassengerGenerator;
+import by.project.onlinebooking.helpers.UserGenerator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
 
 public class PassengerWithUserMapperTest {
 
-    private final PassengerMapper passengerMapper = Mappers.getMapper(PassengerMapper.class);
+    private static final long ID = 1L;
+    private final PassengerWithUserMapper passengerMapper = Mappers.getMapper( PassengerWithUserMapper.class );
 
     @Test
-    public void passengerWithUserToDto() {
-        Passenger passenger = new Passenger();
-        passenger.setDeparturePoint("departurePoint");
-        passenger.setArrivalPoint("arrivalPoint");
-        passenger.setRouteId(1);
-        passenger.setUserId(1);
+    public void passengerWithUserToTdo() {
+        Passenger passenger = PassengerGenerator.generate( ID, ID );
 
-        User user = new User();
-        user.setFirstName("firstName");
-        user.setPhone("phone");
+        User user = UserGenerator.generate();
 
         PassengerDto passengerDto = passengerMapper.passengerToPassengerWithUserDto(passenger, user);
 

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "user", catalog = "routes")
+@Table(name = "user")
 public class User {
 
     @Id
