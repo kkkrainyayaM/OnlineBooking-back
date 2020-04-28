@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "Get a user by phone")
-    @GetMapping("/users")
+    @GetMapping("/users/phone")
     public UserDto getUser(@RequestParam String phone) {
         return userService.getByPhone(phone);
     }
@@ -54,7 +54,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "LogIn user")
-    @PostMapping("/users")
+    @PostMapping("/users/login")
     public UserDto logIn(@Valid @RequestBody LoginDto loginDto) {
         return userService.logIn(loginDto);
     }

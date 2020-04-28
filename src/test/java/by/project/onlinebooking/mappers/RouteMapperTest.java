@@ -12,7 +12,7 @@ public class RouteMapperTest {
     private final RouteMapper routeMapper = Mappers.getMapper(RouteMapper.class);
 
     @Test
-    public void routeToTdoMapping() {
+    public void routeToDtoMapping() {
         Route route = RouteGenerator.generate();
 
         RouteDto routeDto = routeMapper.routeToRouteDto(route);
@@ -26,7 +26,7 @@ public class RouteMapperTest {
     }
 
     @Test
-    public void tdoToRouteMapping() {
+    public void dtoToRouteMapping() {
         RouteDto routeDto = RouteGenerator.generateDto();
 
         Route route = routeMapper.routeDtoToRoute(routeDto);

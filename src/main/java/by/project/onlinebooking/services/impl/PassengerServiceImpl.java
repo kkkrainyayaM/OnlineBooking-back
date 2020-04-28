@@ -34,13 +34,13 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public void deleteByUserId(long id) {
-        passengerRepository.deleteByUserId(id);
+        passengerRepository.deleteAllByUserId(id);
         log.info("Delete passenger with userId={}", id);
     }
 
     @Override
     public void deleteByRouteId(long id) {
-        passengerRepository.deleteByRouteId(id);
+        passengerRepository.deleteAllByRouteId(id);
         log.info("Delete passenger with routeId={}", id);
     }
 

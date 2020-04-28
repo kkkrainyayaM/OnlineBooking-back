@@ -13,10 +13,9 @@ public class PassengerWithRouteMapperTest {
 
     private final PassengerMapper passengerMapper = Mappers.getMapper(PassengerMapper.class);
     private static final long ID = 1L;
-    private final PassengerWithRouteMapper passengerMapper = Mappers.getMapper( PassengerWithRouteMapper.class );
 
     @Test
-    public void passengerToTdoMapping() {
+    public void passengerToDtoMapping() {
         Passenger passenger = PassengerGenerator.generate( ID, ID );
         Route route = RouteGenerator.generate();
 

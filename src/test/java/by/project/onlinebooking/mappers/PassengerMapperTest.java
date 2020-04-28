@@ -13,7 +13,7 @@ public class PassengerMapperTest {
     private final PassengerMapper passengerMapper = Mappers.getMapper( PassengerMapper.class );
 
     @Test
-    public void passengerToTdoMapping() {
+    public void passengerToDtoMapping() {
         Passenger passenger = PassengerGenerator.generate( ID, ID );
 
         PassengerDto passengerDto = passengerMapper.passengerToPassengerDto(passenger);
@@ -25,7 +25,7 @@ public class PassengerMapperTest {
     }
 
     @Test
-    public void tdoToPassengerMapping() {
+    public void DtoToPassengerMapping() {
         PassengerDto passengerDto = PassengerGenerator.generateDto( ID, ID );
 
         Passenger passenger = passengerMapper.passengerDtoToPassenger(passengerDto);
