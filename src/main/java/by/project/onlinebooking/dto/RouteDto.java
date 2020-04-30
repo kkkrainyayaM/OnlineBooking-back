@@ -3,12 +3,12 @@ package by.project.onlinebooking.dto;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class RouteDto {
     private long id;
-    private Date date;
+    private LocalDate date;
 
     @NotEmpty
     private String departureTime;

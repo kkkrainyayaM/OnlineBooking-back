@@ -3,12 +3,12 @@ package by.project.onlinebooking.helpers;
 import by.project.onlinebooking.dto.RouteDto;
 import by.project.onlinebooking.entities.Route;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class RouteGenerator {
 
     public static Route generate() {
-        Date dateNow = new Date();
+        LocalDate dateNow = LocalDate.now();
         Route route = new Route();
         route.setDate( dateNow );
         route.setArrivalPoint( "arrivalPoint" );
@@ -19,7 +19,7 @@ public class RouteGenerator {
     }
 
     public static RouteDto generateDto() {
-        Date dateNow = new Date();
+        LocalDate dateNow = LocalDate.now();
         RouteDto route = new RouteDto();
         route.setDate( dateNow );
         route.setArrivalPoint( "arrivalPoint" );

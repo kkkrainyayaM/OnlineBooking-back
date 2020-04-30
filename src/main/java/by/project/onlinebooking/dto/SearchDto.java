@@ -3,11 +3,11 @@ package by.project.onlinebooking.dto;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class SearchDto {
-    private Date date;
+    private LocalDate date;
 
     @NotEmpty
     private String departurePoint;

@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,7 +68,7 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     public List<RouteDto> getBySearch(SearchDto search) {
-        Date date = search.getDate();
+        LocalDate date = search.getDate();
         String arrivalPoint = search.getArrivalPoint();
         String departurePoint = search.getDeparturePoint();
         log.info("Search: {}", search);

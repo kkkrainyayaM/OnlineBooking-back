@@ -5,7 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class PassengerDto {
@@ -26,7 +26,7 @@ public class PassengerDto {
     private String arrivalPoint;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private Date date;
+    private LocalDate date;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @NotEmpty
