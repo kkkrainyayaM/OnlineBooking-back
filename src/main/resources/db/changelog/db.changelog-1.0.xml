@@ -82,7 +82,48 @@
                                  referencedTableName="user"
                                  referencedColumnNames="id"/>
 
+    </changeSet>
 
+    <changeSet id="start-data" author="mari" dbms="mysql">
+        <insert tableName="user">
+            <column name="id" value="1"/>
+            <column name="first_name" value="Мария"/>
+            <column name="last_name" value="Крайняя"/>
+            <column name="phone" value="375299545280"/>
+            <column name="password" value="manja23092000"/>
+            <column name="role" value="ADMIN"/>
+        </insert>
+        <insert tableName="user">
+            <column name="id" value="2"/>
+            <column name="first_name" value="Лиза"/>
+            <column name="last_name" value="Коливерда"/>
+            <column name="phone" value="375444834830"/>
+            <column name="password" value="mypasssword"/>
+            <column name="role" value="USER"/>
+        </insert>
+        <insert tableName="route">
+            <column name="id" value="1"/>
+            <column name="departure_point" value="Минск"/>
+            <column name="arrival_point" value="Микашевичи"/>
+            <column name="departure_time" value="11:00"/>
+            <column name="arrival_time" value="14:00"/>
+            <column name="date" value="2020-05-11"/>
+        </insert>
+        <insert tableName="route">
+            <column name="id" value="2"/>
+            <column name="departure_point" value="Лунинец"/>
+            <column name="arrival_point" value="Минск"/>
+            <column name="departure_time" value="07:00"/>
+            <column name="arrival_time" value="10:00"/>
+            <column name="date" value="2020-05-11"/>
+        </insert>
+        <insert tableName="passenger">
+            <column name="id" value="1"/>
+            <column name="route_id" value="1"/>
+            <column name="user_id" value="1"/>
+            <column name="arrival_point" value="Микашевичи"/>
+            <column name="departure_point" value="Минск"/>
+        </insert>
     </changeSet>
 
     <changeSet id="for-tests" author="mari" dbms="h2">
