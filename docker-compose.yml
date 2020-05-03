@@ -8,6 +8,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=rootpassword
       - MYSQL_DATABASE=routes
+    ports:
+      - "3306:3306"
   web-service:
     build:
       context: ./
