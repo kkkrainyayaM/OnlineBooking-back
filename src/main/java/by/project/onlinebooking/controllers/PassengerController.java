@@ -36,7 +36,7 @@ public class PassengerController {
     }
 
     @ApiOperation(value = "Get list of routes of passenger")
-    @GetMapping("/passenger/{id}/routes")
+    @GetMapping("/passengers/{id}/routes")
     public List<PassengerDto> getRoutesOfPassenger(@PathVariable long id) {
         return passengerService.getAllByRouteId(id);
     }
